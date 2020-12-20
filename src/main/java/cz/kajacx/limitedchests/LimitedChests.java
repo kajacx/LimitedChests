@@ -1,4 +1,5 @@
-package com.example.examplemod;
+
+package cz.kajacx.limitedchests;
 
 import net.minecraft.init.Blocks;
 import net.minecraftforge.fml.common.Mod;
@@ -7,25 +8,26 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import org.apache.logging.log4j.Logger;
 
-@Mod(modid = ExampleMod.MODID, name = ExampleMod.NAME, version = ExampleMod.VERSION)
-public class ExampleMod
+@Mod(modid = cz.kajacx.limitedchests.LimitedChests.MODID, name = cz.kajacx.limitedchests.LimitedChests.NAME, version = cz.kajacx.limitedchests.LimitedChests.VERSION, useMetadata = true)
+public class LimitedChests
 {
-    public static final String MODID = "examplemod";
-    public static final String NAME = "Example Mod";
+    public static final String MODID = "limitedchests";
+    public static final String NAME = "Limited Chests";
     public static final String VERSION = "1.12.0-0.1.0";
 
     private static Logger logger;
 
-    @EventHandler
+    @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event)
     {
         logger = event.getModLog();
     }
 
-    @EventHandler
+    @Mod.EventHandler
     public void init(FMLInitializationEvent event)
     {
         // some example code
-        logger.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
+        logger.info("HELLO LIMITED CHESTS, DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
     }
 }
+
