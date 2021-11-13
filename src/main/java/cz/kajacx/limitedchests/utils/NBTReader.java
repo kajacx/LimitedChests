@@ -103,6 +103,6 @@ public class NBTReader {
 
     public static ItemStack loadItemStackFromNBT(NBTTagCompound nbt) {
         ItemStack itemstack = new ItemStack(nbt);
-        return itemstack.getItem() != null ? itemstack : null;
+        return itemstack.getItem() != null ? itemstack : ItemStack.EMPTY.copy();
     }
 }

@@ -1,5 +1,6 @@
 package cz.kajacx.limitedchests.tileentities;
 
+import cz.kajacx.limitedchests.utils.Log;
 import cz.kajacx.limitedchests.utils.NBTReader;
 
 import net.minecraft.entity.player.EntityPlayer;
@@ -14,13 +15,12 @@ import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
 
 public class LimitedChest extends TileEntity implements ITickable, IInventory {
-
-    static final ItemStack EMPTY_STACK = new ItemStack((Item) null, 0);
 
     private ItemStack[] inventory;
 
@@ -30,23 +30,9 @@ public class LimitedChest extends TileEntity implements ITickable, IInventory {
     private int[] limit; //limit of items in each inventory
     private Item[] validItems; //certain item or null for any
 
-    public String getCustomName() {
-        return customName;
-    }
-
-    public void setCustomName(String customName) {
-        this.customName = customName;
-    }
-
-    public EnumFacing getFacing() {
-        return facing;
-    }
-
-    public void setFacing(EnumFacing facing) {
-        this.facing = facing;
-    }
-
     public LimitedChest() {
+        super();
+
         inventory = new ItemStack[getSizeInventory()];
         limit = new int[getSizeInventory()];
         validItems = new Item[getSizeInventory()];
@@ -65,13 +51,53 @@ public class LimitedChest extends TileEntity implements ITickable, IInventory {
             if (validItems[i] != null) {
                 inventory[i] = new ItemStack(validItems[i], 0);
             } else {
-                inventory[i] = EMPTY_STACK.copy();
+                inventory[i] = ItemStack.EMPTY.copy();
             }
         }
     }
 
     @Override
+    public void setPos(BlockPos posIn)
+    {
+        if (posIn == null) {
+            Log.logger.warn(Log.badArgsMarker, "LimitedChest.setPos posIn: {}", posIn);
+            return;
+        }
+
+        super.setPos(posIn);
+    }
+
+    public void setCustomName(String customName) {
+        if (customName != null) {
+            customName = customName.trim();
+        }
+        this.customName = customName;
+    }
+
+    public String getCustomName() {
+        return customName;
+    }
+
+    public void setFacing(EnumFacing facing) {
+        if (facing == null) {
+            Log.logger.warn(Log.badArgsMarker, "LimitedChest.setFacing facing: {}", facing);
+            return;
+        }
+
+        this.facing = facing;
+    }
+
+    public EnumFacing getFacing() {
+        return facing;
+    }
+
+    @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+        if (compound == null) {
+            Log.logger.warn(Log.badArgsMarker, "LimitedChest.writeToNBT compound: {}", compound);
+            compound = new NBTTagCompound();
+        }
+
         super.writeToNBT(compound);
 
         NBTTagList list = new NBTTagList();
@@ -97,6 +123,11 @@ public class LimitedChest extends TileEntity implements ITickable, IInventory {
 
     @Override
     public void readFromNBT(NBTTagCompound compound) {
+        if (compound == null) {
+            Log.logger.warn(Log.badArgsMarker, "LimitedChest.readFromNBT compound: {}", compound);
+            compound = new NBTTagCompound();
+        }
+
         super.readFromNBT(compound);
 
         NBTTagList list = NBTReader.readListOr(compound, "Items", new NBTTagList(), NBTReader.TYPE_COMPOUND);
@@ -109,6 +140,7 @@ public class LimitedChest extends TileEntity implements ITickable, IInventory {
         setCustomName(NBTReader.readStringOr(compound, "CustomName", null));
 
         int facingInt = compound.getInteger("Facing");
+        // TODO: check invalid int values
         facing = EnumFacing.getHorizontal(facingInt);
     }
 
@@ -130,17 +162,17 @@ public class LimitedChest extends TileEntity implements ITickable, IInventory {
 
     @Override
     public String getName() {
-        return this.hasCustomName() ? this.customName : "container.limited_chest";
+        return hasCustomName() ? customName : "container.limited_chest";
     }
 
     @Override
     public boolean hasCustomName() {
-        return this.customName != null && !this.customName.equals("");
+        return customName != null && !customName.equals("");
     }
 
     @Override
     public ITextComponent getDisplayName() {
-        return this.hasCustomName() ? new TextComponentString(this.getName()) : new TextComponentTranslation(this.getName());
+        return hasCustomName() ? new TextComponentString(getName()) : new TextComponentTranslation(getName());
     }
 
     @Override
@@ -150,8 +182,8 @@ public class LimitedChest extends TileEntity implements ITickable, IInventory {
 
     @Override
     public boolean isEmpty() {
-        for(ItemStack stack: inventory) {
-            if (stack != null && stack.getCount() > 0) {
+        for (ItemStack stack: inventory) {
+            if (stack.getCount() > 0) {
                 return false;
             }
         }
@@ -160,32 +192,34 @@ public class LimitedChest extends TileEntity implements ITickable, IInventory {
 
     @Override
     public ItemStack getStackInSlot(int index) {
-        if (index < 0 || index >= this.getSizeInventory())
+        if (index < 0 || index >= getSizeInventory()) {
+            Log.logger.warn(Log.badArgsMarker, "LimitedChest.getStackInSlot index: {}", index);
             return null;
-        return this.inventory[index];
+        }
+        return inventory[index];
     }
 
     @Override
     public ItemStack decrStackSize(int index, int count) {
-        if (this.getStackInSlot(index) != null) {
+        if (getStackInSlot(index) != null) {
             ItemStack itemstack;
 
-            if (this.getStackInSlot(index).getCount() <= count) {
-                itemstack = this.getStackInSlot(index);
-                this.setInventorySlotContents(index, EMPTY_STACK.copy());
-                this.markDirty();
+            if (getStackInSlot(index).getCount() <= count) {
+                itemstack = getStackInSlot(index);
+                setInventorySlotContents(index, ItemStack.EMPTY.copy());
+                markDirty();
                 return itemstack;
             } else {
-                itemstack = this.getStackInSlot(index).splitStack(count);
+                itemstack = getStackInSlot(index).splitStack(count);
 
-                if (this.getStackInSlot(index).getCount() <= 0) {
-                    this.setInventorySlotContents(index, EMPTY_STACK.copy());
+                if (getStackInSlot(index).getCount() <= 0) {
+                    setInventorySlotContents(index, ItemStack.EMPTY.copy());
                 } else {
                     //Just to show that changes happened
-                    this.setInventorySlotContents(index, this.getStackInSlot(index));
+                    setInventorySlotContents(index, getStackInSlot(index));
                 }
 
-                this.markDirty();
+                markDirty();
                 return itemstack;
             }
         } else {
@@ -195,31 +229,33 @@ public class LimitedChest extends TileEntity implements ITickable, IInventory {
 
     @Override
     public ItemStack removeStackFromSlot(int index) {
-        ItemStack stack = this.getStackInSlot(index);
-        this.setInventorySlotContents(index, EMPTY_STACK.copy());
+        ItemStack stack = getStackInSlot(index);
+        setInventorySlotContents(index, ItemStack.EMPTY.copy());
         return stack;
     }
 
     @Override
     public void setInventorySlotContents(int index, ItemStack stack) {
-        if (index < 0 || index >= this.getSizeInventory()) {
+        if (index < 0 || index >= getSizeInventory()) {
+            Log.logger.warn(Log.badArgsMarker, "LimitedChest.setInventorySlotContents index: {}", index);
             return;
         }
 
-        if (stack != null && stack.getCount() > this.getInventoryStackLimit()) {
-            stack.setCount(this.getInventoryStackLimit());
+        if (stack == null || (stack.getItem() != null && stack.getCount() == 0)) {
+            stack = ItemStack.EMPTY.copy();
         }
 
-        if (stack != null && stack.getCount() == 0) {
-            stack = EMPTY_STACK.copy();
+        if (validItems[index] != null && stack.getItem() != validItems[index]) {
+            return;
         }
 
-        if (stack == null && validItems[index] != null) {
-            stack = new ItemStack(validItems[index], 0);
+        if (stack.getCount() > getInventoryStackLimit()) {
+            stack = stack.copy();
+            stack.setCount(getInventoryStackLimit());
         }
 
-        this.inventory[index] = stack;
-        this.markDirty();
+        inventory[index] = stack;
+        markDirty();
     }
 
     @Override
@@ -229,6 +265,7 @@ public class LimitedChest extends TileEntity implements ITickable, IInventory {
 
     public int getInventoryStackLimit(int index) {
         if (index < 0 || index >= getSizeInventory()) {
+            Log.logger.warn(Log.badArgsMarker, "LimitedChest.getInventoryStackLimit index: {}", index);
             return getInventoryStackLimit();
         }
         return limit[index];
@@ -236,7 +273,17 @@ public class LimitedChest extends TileEntity implements ITickable, IInventory {
 
     @Override
     public boolean isUsableByPlayer(EntityPlayer player) {
-        return world.getTileEntity(this.getPos()) == this && player.getDistanceSq(this.pos.add(0.5, 0.5, 0.5)) <= 64;
+        if (world == null) {
+            Log.logger.warn(Log.badFieldsMarker, "LimitedChest.isUsableByPlayer world: {}", world);
+            return false;
+        }
+        
+        if (player == null) {
+            Log.logger.warn(Log.badArgsMarker, "LimitedChest.isUsableByPlayer player: {}", player);
+            return false;
+        }
+
+        return world.getTileEntity(getPos()) == this && player.getDistanceSq(pos.add(0.5, 0.5, 0.5)) <= 64;
     }
 
     @Override
@@ -251,8 +298,15 @@ public class LimitedChest extends TileEntity implements ITickable, IInventory {
 
     @Override
     public boolean isItemValidForSlot(int index, ItemStack stack) {
-        if (stack == null || index < 0 || index >= getSizeInventory()) {
+        if (index < 0 || index >= getSizeInventory()) {
+            Log.logger.warn(Log.badArgsMarker, "LimitedChest.isItemValidForSlot index: {}", index);
             return false;
+        }
+
+        if (stack == null) {
+            // TODO: really log message here?
+            Log.logger.warn(Log.badArgsMarker, "LimitedChest.isItemValidForSlot stack: {}", stack);
+            stack = ItemStack.EMPTY.copy();
         }
 
         //work-around to fix broken hopper mechanics
@@ -264,7 +318,8 @@ public class LimitedChest extends TileEntity implements ITickable, IInventory {
     }
 
     public int itemsInSlot(int index) {
-        if (index < 0 || index >= getSizeInventory() || inventory[index] == null) {
+        if (index < 0 || index >= getSizeInventory()) {
+            Log.logger.warn(Log.badArgsMarker, "LimitedChest.itemsInSlot index: {}", index);
             return 0;
         }
 
@@ -288,8 +343,8 @@ public class LimitedChest extends TileEntity implements ITickable, IInventory {
 
     @Override
     public void clear() {
-        for (int i = 0; i < this.getSizeInventory(); i++) {
-            this.setInventorySlotContents(i, EMPTY_STACK.copy());
+        for (int i = 0; i < getSizeInventory(); i++) {
+            setInventorySlotContents(i, ItemStack.EMPTY.copy());
         }
     }
 

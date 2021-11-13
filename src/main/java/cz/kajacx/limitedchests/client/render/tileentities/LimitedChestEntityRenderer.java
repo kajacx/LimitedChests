@@ -2,6 +2,7 @@ package cz.kajacx.limitedchests.client.render.tileentities;
 
 import cz.kajacx.limitedchests.LimitedChests;
 import cz.kajacx.limitedchests.tileentities.LimitedChest;
+import cz.kajacx.limitedchests.utils.Log;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelChest;
 import net.minecraft.client.renderer.GlStateManager;
@@ -15,11 +16,11 @@ public class LimitedChestEntityRenderer extends TileEntitySpecialRenderer<Limite
 
     @Override
     public void render(LimitedChest tileEntity, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
-        int facing = 0;
-        if (tileEntity.getFacing() != null) {
-            facing = tileEntity.getFacing().getHorizontalIndex();
-        } else {
-            //LimitedChests.logger.error("Enum facing is null in LimitedChest at %1 %2 %3", x, y, z);
+        EnumFacing facing = tileEntity != null ? tileEntity.getFacing() : null;
+
+        if (tileEntity == null || facing == null) {
+            Log.logger.warn(Log.badArgsMarker, "LimitedChestEntityRenderer.render tileEntity: {}, facing: {}", tileEntity, facing);
+            return;
         }
 
         // -- NORMAL RENDER CODE --
@@ -31,7 +32,7 @@ public class LimitedChestEntityRenderer extends TileEntitySpecialRenderer<Limite
 
         //basic
 
-        EnumFacing side = EnumFacing.getHorizontal(facing);
+        EnumFacing side = EnumFacing.getHorizontal(facing.getHorizontalIndex());
         float angleCW = side.getHorizontalIndex() - EnumFacing.SOUTH.getHorizontalIndex();
         angleCW *= 90;
 

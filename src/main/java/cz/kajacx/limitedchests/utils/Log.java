@@ -11,4 +11,6 @@ public class Log {
 
     public static Marker badArgsMarker = MarkerManager.getMarker("BAD_ARGUMENTS");
 
+    public static Marker badFieldsMarker = MarkerManager.getMarker("BAD_FIELDS");
+
 }

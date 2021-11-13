@@ -1,26 +1,33 @@
 package cz.kajacx.limitedchests.gui;
 
 import cz.kajacx.limitedchests.tileentities.LimitedChest;
-
+import cz.kajacx.limitedchests.utils.Log;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
 public class LimitedChestSlot extends Slot {
-    private LimitedChest chest;
+    private LimitedChest inventoryIn;
 
-    public LimitedChestSlot(LimitedChest chest, int index, int xPosition, int yPosition) {
-        super(chest, index, xPosition, yPosition);
-        this.chest = chest;
+    public LimitedChestSlot(LimitedChest inventoryIn, int index, int xPosition, int yPosition) {
+        super(inventoryIn, index, xPosition, yPosition);
+
+        if (inventoryIn == null) {
+            Log.logger.warn(Log.badArgsMarker, "LimitedChestSlot.constructor inventoryIn: {}", inventoryIn);
+            inventoryIn = new LimitedChest();
+        }
+
+        this.inventoryIn = inventoryIn;
     }
 
     @Override
     public boolean isItemValid(ItemStack stack) {
-        return chest.isItemValidForSlot(slotNumber, stack);
+        // no need to check stack, it will be checked in isItemValidForSlot
+        return inventoryIn.isItemValidForSlot(slotNumber, stack);
     }
 
     @Override
     public int getSlotStackLimit() {
-        return chest.getInventoryStackLimit(slotNumber);
+        return inventoryIn.getInventoryStackLimit(slotNumber);
     }
 
     @Override

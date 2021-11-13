@@ -21,7 +21,8 @@ public final class BlockRenderRegister {
         Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(block), 0, new ModelResourceLocation(LimitedChests.MODID + ":" + block.getUnlocalizedName().substring(5), "inventory"));
     }
 
-    public static void reg(Block block, int meta, String file) {
-        Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(block), meta, new ModelResourceLocation(LimitedChests.MODID + ":" + file, "inventory"));
-    }
+    // TODO: remove this method?
+    //public static void reg(Block block, int meta, String file) {
+    //    Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(block), meta, new ModelResourceLocation(LimitedChests.MODID + ":" + file, "inventory"));
+    //}
 }

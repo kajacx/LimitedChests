@@ -1,7 +1,7 @@
 package cz.kajacx.limitedchests.gui;
 
 import cz.kajacx.limitedchests.tileentities.LimitedChest;
-
+import cz.kajacx.limitedchests.utils.Log;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
@@ -14,22 +14,28 @@ public class ModGuiHandler implements IGuiHandler {
 
     @Override
     public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-        System.out.println("Getting getServerGuiElement");
+        if (player == null || world == null) {
+            Log.logger.warn(Log.badArgsMarker, "ModGuiHandler.getServerGuiElement player: {}, world: {}", player, world);
+            return null;
+        }
 
         if (ID == LIMITED_CHEST_GUI) {
             TileEntity entity = world.getTileEntity(new BlockPos(x, y, z));
             if (entity instanceof LimitedChest) {
-                System.out.println("ITS not NULL");
                 return new ContainerLimitedChest(player.inventory, (LimitedChest) entity);
             }
         }
-        System.out.println("ITS NULL");
-
+        
         return null;
     }
 
     @Override
     public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
+        if (player == null || world == null) {
+            Log.logger.warn(Log.badArgsMarker, "ModGuiHandler.getClientGuiElement player: {}, world: {}", player, world);
+            return null;
+        }
+
         if (ID == LIMITED_CHEST_GUI) {
             TileEntity entity = world.getTileEntity(new BlockPos(x, y, z));
             if (entity instanceof LimitedChest) {
