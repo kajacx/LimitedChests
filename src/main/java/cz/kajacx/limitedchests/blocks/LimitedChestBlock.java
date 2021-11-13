@@ -4,7 +4,7 @@ import cz.kajacx.limitedchests.LimitedChests;
 import cz.kajacx.limitedchests.gui.LimitedChestsTab;
 import cz.kajacx.limitedchests.gui.ModGuiHandler;
 import cz.kajacx.limitedchests.tileentities.LimitedChest;
-
+import cz.kajacx.limitedchests.utils.Log;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -41,15 +41,24 @@ public class LimitedChestBlock extends BlockContainer {
 
     @Override
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
+        if (worldIn == null || pos == null) {
+            Log.logger.warn(Log.badArgsMarker, "LimitedChestBlock.breakBlock worldIn: {}, pos: {}", worldIn, pos);
+            return;
+        }
+
         TileEntity tileEntity = worldIn.getTileEntity(pos);
         if (tileEntity instanceof IInventory) {
             InventoryHelper.dropInventoryItems(worldIn, pos, (IInventory) tileEntity);
         }
-        super.breakBlock(worldIn, pos, state);
     }
 
     @Override
     public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
+        if (worldIn == null || pos == null || placer == null || stack == null) {
+            Log.logger.warn(Log.badArgsMarker, "LimitedChestBlock.onBlockPlacedBy worldIn: {}, pos: {}, placer: {}, stack: {}", worldIn, pos, placer, stack);
+            return;
+        }
+
         EnumFacing facing = EnumFacing.fromAngle(placer.rotationYaw).getOpposite();
 
         // set display name
@@ -63,6 +72,11 @@ public class LimitedChestBlock extends BlockContainer {
 
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        if (worldIn == null || pos == null || playerIn == null) {
+            Log.logger.warn(Log.badArgsMarker, "LimitedChestBlock.onBlockActivated worldIn: {}, pos: {}, playerIn: {}", worldIn, pos, playerIn);
+            return false;
+        }
+
         if (!worldIn.isRemote) {
             playerIn.openGui(LimitedChests.instance, ModGuiHandler.LIMITED_CHEST_GUI, worldIn, pos.getX(), pos.getY(), pos.getZ());
         }
@@ -72,6 +86,12 @@ public class LimitedChestBlock extends BlockContainer {
     @Override
     public ItemStack getPickBlock(IBlockState state, RayTraceResult result, World world, BlockPos pos, EntityPlayer player) {
         ItemStack stack = new ItemStack(Item.getItemFromBlock(this), 1);
+
+        if (world == null || pos == null) {
+            Log.logger.warn(Log.badArgsMarker, "LimitedChestBlock.getPickBlock world: {}, pos: {}, playerIn: {}", world, pos);
+            return stack;
+        }
+        
         if (world.getTileEntity(pos) instanceof LimitedChest) {
             LimitedChest te = (LimitedChest) world.getTileEntity(pos);
             if (te.hasCustomName()) {

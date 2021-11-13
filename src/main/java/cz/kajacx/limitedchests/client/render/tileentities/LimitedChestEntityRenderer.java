@@ -19,7 +19,7 @@ public class LimitedChestEntityRenderer extends TileEntitySpecialRenderer<Limite
         if (tileEntity.getFacing() != null) {
             facing = tileEntity.getFacing().getHorizontalIndex();
         } else {
-            LimitedChests.logger.error("Enum facing is null in LimitedChest at %1 %2 %3", x, y, z);
+            //LimitedChests.logger.error("Enum facing is null in LimitedChest at %1 %2 %3", x, y, z);
         }
 
         // -- NORMAL RENDER CODE --
