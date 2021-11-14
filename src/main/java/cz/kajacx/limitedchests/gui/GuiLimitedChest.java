@@ -1,29 +1,40 @@
 package cz.kajacx.limitedchests.gui;
 
-import cz.kajacx.limitedchests.tileentities.LimitedChest;
-import cz.kajacx.limitedchests.utils.Log;
-import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.client.renderer.GlStateManager;
+import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.systems.RenderSystem;
+
+import cz.kajacx.limitedchests.tile.TileLimitedChest;
+import cz.kajacx.limitedchests.util.Log;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screen.inventory.ContainerScreen;
+import net.minecraft.client.renderer.texture.TextureManager;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.util.text.ITextComponent;
 
-public class GuiLimitedChest extends GuiContainer  {
+public class GuiLimitedChest extends ContainerScreen<ContainerLimitedChest>  {
+    
+	public ResourceLocation textureFile = new ResourceLocation("limitedchests", "textures/gui/limited_chest.png");
 
-    public GuiLimitedChest(IInventory playerInv, LimitedChest tileEntity) {
-        super(new ContainerLimitedChest(playerInv, tileEntity));
+    public GuiLimitedChest(ContainerLimitedChest container, PlayerInventory playerInventory, ITextComponent title) {
+		super(container, playerInventory, title);
 
-        this.xSize = 176;
-        this.ySize = 166;
+        this.width = 176;
+        this.height = 166;
     }
 
     @Override
-    protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
-        GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
-        mc.getTextureManager().bindTexture(new ResourceLocation("limitedchests", "textures/gui/limited_chest_gui.png"));
-        drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
+	protected void renderBg(MatrixStack transform, float partialTicks, int mouseX, int mouseY) {
+		RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F); //TODO: deprecated?
+
+		TextureManager textureManager = Minecraft.getInstance().getTextureManager();
+		textureManager.bind(textureFile);
+
+		blit(transform, leftPos, topPos, 0, 0, imageWidth, imageHeight);
     }
 
-    @Override
+    /*@Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
         if (!(inventorySlots instanceof ContainerLimitedChest)) {
             Log.logger.warn(Log.badFieldsMarker, "GuiLimitedChest.drawGuiContainerForegroundLayer inventorySlots: {}", inventorySlots);
@@ -40,5 +51,5 @@ public class GuiLimitedChest extends GuiContainer  {
             return;
         }
         fontRenderer.drawString(playerInv.getDisplayName().getUnformattedText(), 8, 72, 0x404040);
-    }
+    }*/
 }

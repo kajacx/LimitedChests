@@ -1,6 +1,6 @@
 {
     "parent": "block/cube_all",
     "textures": {
-        "all": "limitedchests:blocks/limited_chest_block"
+        "all": "limitedchests:block/limited_chest"
     }
 }

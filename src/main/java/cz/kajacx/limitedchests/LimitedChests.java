@@ -1,47 +1,31 @@
 
 package cz.kajacx.limitedchests;
 
-import cz.kajacx.limitedchests.proxy.CommonProxy;
-import cz.kajacx.limitedchests.utils.Log;
+import cz.kajacx.limitedchests.proxy.ProxyClient;
+import cz.kajacx.limitedchests.proxy.ProxyCommon;
+import cz.kajacx.limitedchests.proxy.ProxyServer;
+import cz.kajacx.limitedchests.util.Log;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.SidedProxy;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
-@Mod(modid = cz.kajacx.limitedchests.LimitedChests.MODID, name = cz.kajacx.limitedchests.LimitedChests.NAME, version = cz.kajacx.limitedchests.LimitedChests.VERSION)
+@Mod(cz.kajacx.limitedchests.LimitedChests.MODID)
 public class LimitedChests {
 
     public static final String MODID = "limitedchests";
     public static final String NAME = "Limited Chests";
-    public static final String VERSION = "1.12.0-0.1.0";
+    public static final String VERSION = "1.16.5-0.1.0";
 
-    @Mod.Instance
-    public static LimitedChests instance = new LimitedChests();
+    public static ProxyCommon proxy;
 
-    @SidedProxy(clientSide = "cz.kajacx.limitedchests.proxy.ClientProxy", serverSide = "cz.kajacx.limitedchests.proxy.ServerProxy")
-    public static CommonProxy proxy;
+    public LimitedChests() {
+        Log.logger.debug("Limited Chests main constructor start");
 
-    @Mod.EventHandler
-    public void preInit(FMLPreInitializationEvent event) {
-        Log.logger = event.getModLog();
-        Log.logger.debug("Limited Chests preInit start");
-        proxy.preInit(event);
-        Log.logger.debug("Limited Chests preInit end");
-    }
+		DistExecutor.unsafeCallWhenOn(Dist.CLIENT, () -> () -> proxy = new ProxyClient());
+		DistExecutor.unsafeCallWhenOn(Dist.DEDICATED_SERVER, () -> () -> proxy = new ProxyServer());
+        proxy.registerHandlers();
 
-    @Mod.EventHandler
-    public void init(FMLInitializationEvent event) {
-        Log.logger.debug("Limited Chests init start");
-        proxy.init(event);
-        Log.logger.debug("Limited Chests init end");
-    }
-
-    @Mod.EventHandler
-    public void postInit(FMLPostInitializationEvent event) {
-        Log.logger.debug("Limited Chests postInit start");
-        proxy.postInit(event);
-        Log.logger.debug("Limited Chests postInit end");
+        Log.logger.debug("Limited Chests main constructor end");
     }
 }
 

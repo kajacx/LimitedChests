@@ -1,40 +1,32 @@
-package cz.kajacx.limitedchests.blocks;
+package cz.kajacx.limitedchests.block;
 
 import cz.kajacx.limitedchests.LimitedChests;
-import cz.kajacx.limitedchests.gui.LimitedChestsTab;
-import cz.kajacx.limitedchests.gui.ModGuiHandler;
-import cz.kajacx.limitedchests.tileentities.LimitedChest;
-import cz.kajacx.limitedchests.utils.Log;
-import net.minecraft.block.BlockContainer;
+import cz.kajacx.limitedchests.gui.TabLimitedChests;
+import cz.kajacx.limitedchests.tile.TileLimitedChest;
+import cz.kajacx.limitedchests.util.Log;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumBlockRenderType;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public class LimitedChestBlock extends BlockContainer {
+public class BlockLimitedChest extends Block {
 
-    protected LimitedChestBlock(String unlocalizedName) {
-        super(Material.WOOD);
-        setUnlocalizedName(unlocalizedName);
+    protected BlockLimitedChest(Block.Properties properties) {
+        super(properties);
+        /*setUnlocalizedName(unlocalizedName);
         setRegistryName(unlocalizedName);
         setHardness(2.0f);
         setResistance(6.0f);
-        setCreativeTab(LimitedChestsTab.instance);
+        setCreativeTab(LimitedChestsTab.instance);*/
     }
 
-    @Override
+    /*@Override
     public TileEntity createNewTileEntity(World worldIn, int meta) {
         return new LimitedChest();
     }
@@ -71,7 +63,7 @@ public class LimitedChestBlock extends BlockContainer {
     }
 
     @Override
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, PlayerEntity playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         if (worldIn == null || pos == null || playerIn == null) {
             Log.logger.warn(Log.badArgsMarker, "LimitedChestBlock.onBlockActivated worldIn: {}, pos: {}, playerIn: {}", worldIn, pos, playerIn);
             return false;
@@ -84,7 +76,7 @@ public class LimitedChestBlock extends BlockContainer {
     }
 
     @Override
-    public ItemStack getPickBlock(IBlockState state, RayTraceResult result, World world, BlockPos pos, EntityPlayer player) {
+    public ItemStack getPickBlock(IBlockState state, RayTraceResult result, World world, BlockPos pos, PlayerEntity player) {
         ItemStack stack = new ItemStack(Item.getItemFromBlock(this), 1);
 
         if (world == null || pos == null) {
@@ -109,6 +101,6 @@ public class LimitedChestBlock extends BlockContainer {
     @Override
     public EnumBlockRenderType getRenderType(IBlockState state) {
         return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
-    }
+    }*/
 
 }

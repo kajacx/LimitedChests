@@ -1,21 +1,17 @@
 package cz.kajacx.limitedchests.client.render.tileentities;
 
 import cz.kajacx.limitedchests.LimitedChests;
-import cz.kajacx.limitedchests.tileentities.LimitedChest;
-import cz.kajacx.limitedchests.utils.Log;
+import cz.kajacx.limitedchests.tile.TileLimitedChest;
+import cz.kajacx.limitedchests.util.Log;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.ModelChest;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 
-public class LimitedChestEntityRenderer extends TileEntitySpecialRenderer<LimitedChest> {
-    private static final ResourceLocation texture = new ResourceLocation("limitedchests", "textures/tileentities/limited_chest.png");
-    private ModelChest model = new ModelChest();
+public class LimitedChestEntityRenderer /*extends TileEntitySpecialRenderer<TileLimitedChest>*/ {
+    private static final ResourceLocation texture = new ResourceLocation("limitedchests", "textures/tile/limited_chest.png");
+    //private ModelChest model = new ModelChest();
 
-    @Override
-    public void render(LimitedChest tileEntity, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
+    /*@Override
+    public void render(TileLimitedChest tileEntity, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
         EnumFacing facing = tileEntity != null ? tileEntity.getFacing() : null;
 
         if (tileEntity == null || facing == null) {
@@ -49,6 +45,6 @@ public class LimitedChestEntityRenderer extends TileEntitySpecialRenderer<Limite
         GlStateManager.popMatrix();
 
         // -- END OF NORMAL RENDER CODE --
-    }
+    }*/
 
 }

@@ -1,80 +1,85 @@
 package cz.kajacx.limitedchests.gui;
 
-import cz.kajacx.limitedchests.tileentities.LimitedChest;
-import cz.kajacx.limitedchests.utils.Log;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Container;
+import cz.kajacx.limitedchests.tile.TileLimitedChest;
+import cz.kajacx.limitedchests.util.Log;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.container.Container;
+import net.minecraft.inventory.container.ContainerType;
+import net.minecraft.inventory.container.Slot;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
 public class ContainerLimitedChest extends Container {
 
-    private LimitedChest tileEntity;
-    private IInventory playerInv;
+    private TileLimitedChest tileEntity;
+    private IInventory playerInventory;
 
-    public ContainerLimitedChest(IInventory playerInv, LimitedChest tileEntity) {
-        super();
-
-        if (tileEntity == null) {
-            Log.logger.warn(Log.badArgsMarker, "ContainerLimitedChest.constructor tileEntity: {}", tileEntity);
-            tileEntity = new LimitedChest();
-        }
-
-        this.tileEntity = tileEntity;
-        this.playerInv = playerInv;
+    public ContainerLimitedChest(ContainerType<?> type, int windowIn) {
+        super(type, windowIn);
 
         // Tile Entity, Slot 0-8, Slot IDs 0-8
         for (int y = 0; y < 3; ++y) {
             for (int x = 0; x < 3; ++x) {
-                addSlotToContainer(new LimitedChestSlot(tileEntity, x + y * 3, 62 + x * 18, 17 + y * 18));
+                addSlot(new SlotLimitedChest(tileEntity, x + y * 3, 62 + x * 18, 17 + y * 18));
             }
         }
+    }
 
-        if (playerInv == null) {
-            Log.logger.warn(Log.badArgsMarker, "ContainerLimitedChest.constructor playerInv: {}", playerInv);
+    public void addPlayerInventory(PlayerInventory playerInventory, int xInv, int yInv) {
+        this.playerInventory = playerInventory;
+
+        if (playerInventory == null) {
+            Log.logger.warn(Log.badArgsMarker, "ContainerLimitedChest.constructor playerInv: {}", playerInventory);
             return;
         }
 
-        // Player Inventory, Slot 9-35, Slot IDs 9-35
-        for (int y = 0; y < 3; ++y) {
-            for (int x = 0; x < 9; ++x) {
-                addSlotToContainer(new Slot(playerInv, x + y * 9 + 9, 8 + x * 18, 84 + y * 18));
-            }
-        }
+		// Player inventory
+		for (int row = 0; row < 3; row++) {
+			for (int column = 0; column < 9; column++) {
+				addSlot(playerInventory, column + row * 9 + 9, xInv + column * 18, yInv + row * 18);
+			}
+		}
+		// Player hotbar
+		for (int column = 0; column < 9; column++) {
+			addSlot(playerInventory, column, xInv + column * 18, yInv + 58);
+		}
+	}
 
-        // Player Inventory, Slot 0-8, Slot IDs 36-44 (hotbar)
-        for (int x = 0; x < 9; ++x) {
-            addSlotToContainer(new Slot(playerInv, x, 8 + x * 18, 142));
-        }
-    }
+	public void addSlot(PlayerInventory playerInventory, int slot, int x, int y) {
+		super.addSlot(new Slot(playerInventory, slot, x, y));
+	}
 
-    public LimitedChest getTileEntity() {
+    public TileLimitedChest getTileEntity() {
         return tileEntity;
     }
 
-    public IInventory getPlayerInv() {
-        return playerInv;
+    public IInventory getPlayerInventory() {
+        return playerInventory;
     }
 
     @Override
-    public boolean canInteractWith(EntityPlayer playerIn) {
+    public boolean stillValid(PlayerEntity playerIn) {
         if (playerIn == null) {
             Log.logger.warn(Log.badArgsMarker, "ContainerLimitedChest.canInteractWith facing: {}", playerIn);
             return false;
         }
 
-        return tileEntity.isUsableByPlayer(playerIn);
+        return tileEntity.stillValid(playerIn);
     }
 
     @Override
-    public ItemStack transferStackInSlot(EntityPlayer playerIn, int fromSlot) {
+    public ItemStack quickMoveStack(PlayerEntity playerIn, int fromSlot) {
         if (playerIn == null) {
             Log.logger.warn(Log.badArgsMarker, "ContainerLimitedChest.transferStackInSlot playerIn: {}", playerIn);
-            return ItemStack.EMPTY;
+            return ItemStack.EMPTY.copy();
         }
 
-        ItemStack previous = ItemStack.EMPTY;
+		if (stillValid(playerIn)) {
+			return ItemStack.EMPTY;
+		}
+
+        /*ItemStack previous = ItemStack.EMPTY;
         Slot slot = inventorySlots.get(fromSlot);
 
         if (slot != null && slot.getHasStack()) {
@@ -102,10 +107,11 @@ public class ContainerLimitedChest extends Container {
             }
             slot.onTake(playerIn, current);
         }
-        return previous;
+        return previous;*/
+        return ItemStack.EMPTY.copy();
     }
 
-    private boolean mergeItemStack2(ItemStack stack, int startIndex, int endIndex) {
+    /*private boolean mergeItemStack2(ItemStack stack, int startIndex, int endIndex) {
         if (startIndex <= endIndex)
             return false;
 
@@ -169,7 +175,7 @@ public class ContainerLimitedChest extends Container {
         return success;
     }
 
-    /*public NonNullList<ItemStack> getInventory()
+    public NonNullList<ItemStack> getInventory()
     {
         NonNullList<ItemStack> nonnulllist = NonNullList.<ItemStack>create();
 
