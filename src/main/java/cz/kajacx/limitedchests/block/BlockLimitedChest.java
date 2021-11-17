@@ -102,5 +102,4 @@ public class BlockLimitedChest extends Block {
     public EnumBlockRenderType getRenderType(IBlockState state) {
         return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
     }*/
-
 }

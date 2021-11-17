@@ -39,5 +39,4 @@ public class SlotLimitedChest extends Slot {
     public int getMaxStackSize(ItemStack stack) {
         return inventoryIn.getMaxStackSize(index, stack);
     }
-
 }

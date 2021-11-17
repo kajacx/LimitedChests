@@ -7,5 +7,4 @@ public class ItemLimitedChest extends Item {
     public ItemLimitedChest(Properties properties) {
         super(properties);
     }
-    
 }

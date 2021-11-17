@@ -6,8 +6,11 @@ import cz.kajacx.limitedchests.proxy.ProxyCommon;
 import cz.kajacx.limitedchests.proxy.ProxyServer;
 import cz.kajacx.limitedchests.util.Log;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 @Mod(cz.kajacx.limitedchests.LimitedChests.MODID)
 public class LimitedChests {
@@ -23,9 +26,12 @@ public class LimitedChests {
 
 		DistExecutor.unsafeCallWhenOn(Dist.CLIENT, () -> () -> proxy = new ProxyClient());
 		DistExecutor.unsafeCallWhenOn(Dist.DEDICATED_SERVER, () -> () -> proxy = new ProxyServer());
-        proxy.registerHandlers();
+        
+		IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
+        proxy.register(eventBus);
+
+        MinecraftForge.EVENT_BUS.register(this);
 
         Log.logger.debug("Limited Chests main constructor end");
     }
 }
-

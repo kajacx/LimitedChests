@@ -17,5 +17,4 @@ public class ModTiles {
         ResourceLocation location = new ResourceLocation(LimitedChests.MODID, "limited_chest");
         registry.register(limitedChest.setRegistryName(location));
     }
-
 }
