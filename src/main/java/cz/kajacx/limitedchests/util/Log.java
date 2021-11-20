@@ -3,7 +3,6 @@ package cz.kajacx.limitedchests.util;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Stack;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -81,8 +80,5 @@ public class Log {
             logger.trace(methodTraceMarker, "Leaving {}", methodName);
             --traceLogIndex;
         }
-
-
-    } 
-
+    }
 }
