@@ -5,6 +5,7 @@ import cz.kajacx.limitedchests.proxy.ProxyClient;
 import cz.kajacx.limitedchests.proxy.ProxyCommon;
 import cz.kajacx.limitedchests.proxy.ProxyServer;
 import cz.kajacx.limitedchests.util.Log;
+import cz.kajacx.limitedchests.util.Log.TraceLog;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -22,16 +23,14 @@ public class LimitedChests {
     public static ProxyCommon proxy;
 
     public LimitedChests() {
-        Log.logger.debug("Limited Chests main constructor start");
+        try (TraceLog log = Log.enter("LimitedChests.constructor")) {
+            DistExecutor.unsafeCallWhenOn(Dist.CLIENT, () -> () -> proxy = new ProxyClient());
+            DistExecutor.unsafeCallWhenOn(Dist.DEDICATED_SERVER, () -> () -> proxy = new ProxyServer());
+            
+            IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
+            proxy.register(eventBus);
 
-		DistExecutor.unsafeCallWhenOn(Dist.CLIENT, () -> () -> proxy = new ProxyClient());
-		DistExecutor.unsafeCallWhenOn(Dist.DEDICATED_SERVER, () -> () -> proxy = new ProxyServer());
-        
-		IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
-        proxy.register(eventBus);
-
-        MinecraftForge.EVENT_BUS.register(this);
-
-        Log.logger.debug("Limited Chests main constructor end");
+            MinecraftForge.EVENT_BUS.register(this);
+        }
     }
 }
