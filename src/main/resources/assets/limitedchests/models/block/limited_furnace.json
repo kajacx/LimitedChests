@@ -1,0 +1,6 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "limitedchests:block/limited_furnace"
+  }
+}

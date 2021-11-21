@@ -1,0 +1,5 @@
+{
+  "variants": {
+    "": { "model": "limitedchests:block/limited_furnace" }
+  }
+}

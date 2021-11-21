@@ -20,7 +20,11 @@ public class ModBlocks {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, LimitedChests.MODID);
 
     public static final RegistryObject<Block> limitedChest = BLOCKS.register("limited_chest", 
-        () -> new Block(AbstractBlock.Properties.of(Material.WOOD).harvestLevel(0).harvestTool(ToolType.PICKAXE).strength(2.5f))
+        () -> new Block(AbstractBlock.Properties.of(Material.WOOD).harvestLevel(0).harvestTool(ToolType.AXE).strength(2.5f))
+    );
+
+    public static final RegistryObject<Block> limitedFurnace = BLOCKS.register("limited_furnace", 
+        () -> new Block(AbstractBlock.Properties.of(Material.STONE).harvestLevel(0).harvestTool(ToolType.PICKAXE).requiresCorrectToolForDrops().strength(3f))
     );
 
     public static void register(IEventBus eventBus) {

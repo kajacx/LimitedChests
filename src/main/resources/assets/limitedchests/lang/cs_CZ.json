@@ -3,8 +3,10 @@
 
   "item.limitedchests.chest_limiter": "Omezovač truhel",
   "item.limitedchests.limited_chest": "Omezená truhla",
+  "item.limitedchests.limited_furnace": "Omezená pec",
 
   "block.limitedchests.limited_chest": "Omezená truhla",
+  "block.limitedchests.limited_furnace": "Omezená pec",
 
   "tile.limitedchests.limited_chest": "Omezená truhla",
 

@@ -3,8 +3,10 @@
 
   "item.limitedchests.chest_limiter": "Chest limiter",
   "item.limitedchests.limited_chest": "Limited chest",
+  "item.limitedchests.limited_furnace": "Limited furnace",
 
   "block.limitedchests.limited_chest": "Limited chest",
+  "block.limitedchests.limited_furnace": "Limited furnace",
 
   "tile.limitedchests.limited_chest": "Limited chest",
 
