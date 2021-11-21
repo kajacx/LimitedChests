@@ -17,7 +17,7 @@ public class ModItems {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, LimitedChests.MODID);
 
     public static final RegistryObject<Item> chestLimiter = ITEMS.register("chest_limiter",
-        () -> new Item(new Item.Properties().tab(TabLimitedChests.instance))
+        () -> new ItemChestLimiter(new Item.Properties().tab(TabLimitedChests.instance))
     );
 
     public static final RegistryObject<Item> limitedChest = ITEMS.register("limited_chest",
