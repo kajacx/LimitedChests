@@ -1,23 +1,38 @@
 package cz.kajacx.limitedchests.item;
 
+import java.util.List;
+
 import javax.annotation.Nullable;
 
 import cz.kajacx.limitedchests.block.ModBlocks;
 import cz.kajacx.limitedchests.util.Log;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 
 public class ItemChestLimiter extends Item {
 
     public ItemChestLimiter(Properties properties) {
         super(properties);
+    }
+
+    @Override
+    public void appendHoverText(ItemStack stack, World level, List<ITextComponent> tooltip, ITooltipFlag flag) {
+        if (Screen.hasShiftDown()) {
+            tooltip.add(new TranslationTextComponent("tooltip.limitedchests.chest_limiter"));
+        } else {
+            tooltip.add(new TranslationTextComponent("tooltip.limitedchests.hold_shift"));
+        }
     }
     
     @Override

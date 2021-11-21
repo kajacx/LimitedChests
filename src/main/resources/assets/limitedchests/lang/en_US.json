@@ -5,6 +5,9 @@
   "item.limitedchests.limited_chest": "Limited chest",
   "item.limitedchests.limited_furnace": "Limited furnace",
 
+  "tooltip.limitedchests.hold_shift": "Hold \u00A7eSHIFT\u00A7r for more information.",
+  "tooltip.limitedchests.chest_limiter": "Craft again with a limited item to unlimit it.",
+
   "block.limitedchests.limited_chest": "Limited chest",
   "block.limitedchests.limited_furnace": "Limited furnace",
 
