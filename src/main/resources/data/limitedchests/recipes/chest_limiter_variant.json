@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "L#B",
+    "#P#",
+    "B#L"
+  ],
+  "key": {
+    "P": {
+      "tag": "minecraft:planks"
+    },
+    "#": {
+      "item": "minecraft:stick"
+    },
+    "B": {
+      "item": "minecraft:stone_button"
+    },
+    "L": {
+      "item": "minecraft:lever"
+    }
+  },
+  "result": {
+    "item": "limitedchests:chest_limiter"
+  }
+}
