@@ -1,5 +1,5 @@
 {
-    "variants": {
-        "normal": { "model": "limitedchests:limited_chest_block" }
-    }
+  "variants": {
+    "": { "model": "limitedchests:block/limited_chest" }
+  }
 }

@@ -29,7 +29,7 @@ public class TileLimitedChest extends TileEntity implements IInventory {
     private Item[] validItems; //certain item or null for any
 
     public TileLimitedChest() {
-        super(ModTiles.limitedChest);
+        super(/*ModTiles.limitedChest*/ null);
 
         inventory = new ItemStack[getContainerSize()];
         limit = new int[getContainerSize()];
