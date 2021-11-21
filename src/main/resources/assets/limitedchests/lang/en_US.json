@@ -1,11 +1,12 @@
 {
   "itemGroup.limitedchests": "Limited Chests",
 
-  "item.limitedchests.limited_chest": "Limited Chest",
+  "item.limitedchests.chest_limiter": "Chest limiter",
+  "item.limitedchests.limited_chest": "Limited chest",
 
-  "tile.limitedchests.limited_chest": "Limited Chest",
+  "tile.limitedchests.limited_chest": "Limited chest",
 
-  "container.limitedchests.limited_chest": "Limited Chest",
+  "container.limitedchests.limited_chest": "Limited chest",
 
   "_trailingComma": "Hack to enable trailing comma in JSON"
 }

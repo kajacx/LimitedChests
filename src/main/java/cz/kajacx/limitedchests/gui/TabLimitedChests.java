@@ -16,6 +16,6 @@ public class TabLimitedChests extends ItemGroup {
 
     @Override
     public ItemStack makeIcon() {
-        return new ItemStack(ModItems.limitedChest.get());
+        return new ItemStack(ModItems.chestLimiter.get());
     }
 }

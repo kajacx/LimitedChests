@@ -1,11 +1,12 @@
 {
   "itemGroup.limitedchests": "Omezené Truhly (Limited Chests)",
 
-  "item.limited_chest": "Omezená truhla",
+  "item.limitedchests.chest_limiter": "Omezovač truhel",
+  "item.limitedchests.limited_chest": "Omezená truhla",
 
-  "tile.limited_chest.name": "Omezená truhla",
+  "tile.limitedchests.limited_chest": "Omezená truhla",
 
-  "container.limited_chest": "Omezená truhla",
+  "container.limitedchests.limited_chest": "Omezená truhla",
 
   "_trailingComma": "Hack to enable trailing comma in JSON"
 }

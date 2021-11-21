@@ -14,6 +14,7 @@ public abstract class ProxyCommon {
     public void register(IEventBus eventBus) {
         try (TraceLog log = Log.enter("ProxyCommon.register", eventBus)) {
             ModItems.register(eventBus);
+            ModBlocks.register(eventBus);
         }
     }
 }
