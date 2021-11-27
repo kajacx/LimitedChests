@@ -1,14 +1,15 @@
 package cz.kajacx.limitedchests.proxy;
 
-import cz.kajacx.limitedchests.client.render.blocks.BlockRenderRegister;
-import cz.kajacx.limitedchests.client.render.items.ItemRenderRegister;
-import cz.kajacx.limitedchests.client.render.tileentities.TileEntitiesRegister;
+import cz.kajacx.limitedchests.util.Log;
+import cz.kajacx.limitedchests.util.Log.TraceLog;
 import net.minecraftforge.eventbus.api.IEventBus;
 
 public class ProxyClient extends ProxyCommon {
 
     @Override
     public void register(IEventBus eventBus) {
-        super.register(eventBus);
+        try (TraceLog log = Log.enter("ProxyClient.register", eventBus)) {
+            super.register(eventBus);
+        }
     }
 }

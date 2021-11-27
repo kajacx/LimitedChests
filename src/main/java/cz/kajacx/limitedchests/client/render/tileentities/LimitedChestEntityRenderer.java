@@ -1,13 +1,8 @@
 package cz.kajacx.limitedchests.client.render.tileentities;
 
-import cz.kajacx.limitedchests.LimitedChests;
-import cz.kajacx.limitedchests.tile.TileLimitedChest;
-import cz.kajacx.limitedchests.util.Log;
-import net.minecraft.client.Minecraft;
-import net.minecraft.util.ResourceLocation;
 
 public class LimitedChestEntityRenderer /*extends TileEntitySpecialRenderer<TileLimitedChest>*/ {
-    private static final ResourceLocation texture = new ResourceLocation("limitedchests", "textures/tile/limited_chest.png");
+    //private static final ResourceLocation texture = new ResourceLocation("limitedchests", "textures/tile/limited_chest.png");
     //private ModelChest model = new ModelChest();
 
     /*@Override

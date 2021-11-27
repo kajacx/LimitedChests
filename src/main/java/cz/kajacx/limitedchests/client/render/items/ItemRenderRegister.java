@@ -1,9 +1,5 @@
 package cz.kajacx.limitedchests.client.render.items;
 
-import cz.kajacx.limitedchests.LimitedChests;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.item.Item;
 
 public final class ItemRenderRegister {
 

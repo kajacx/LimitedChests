@@ -1,15 +1,8 @@
 package cz.kajacx.limitedchests.gui;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.systems.RenderSystem;
-
-import cz.kajacx.limitedchests.tile.TileLimitedChest;
-import cz.kajacx.limitedchests.util.Log;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
-import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.text.ITextComponent;
 
@@ -26,12 +19,12 @@ public class GuiLimitedChest extends ContainerScreen<ContainerLimitedChest>  {
 
     @Override
 	protected void renderBg(MatrixStack transform, float partialTicks, int mouseX, int mouseY) {
-		RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F); //TODO: deprecated?
+		/*RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
 
 		TextureManager textureManager = Minecraft.getInstance().getTextureManager();
 		textureManager.bind(textureFile);
 
-		blit(transform, leftPos, topPos, 0, 0, imageWidth, imageHeight);
+		blit(transform, leftPos, topPos, 0, 0, imageWidth, imageHeight);*/
     }
 
     /*@Override

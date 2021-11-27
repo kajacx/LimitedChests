@@ -5,12 +5,11 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import cz.kajacx.limitedchests.block.ModBlocks;
-import cz.kajacx.limitedchests.util.Log;
+import cz.kajacx.limitedchests.util.Tags;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
@@ -55,13 +54,13 @@ public class ItemChestLimiter extends Item {
 
     private @Nullable Block tryReplaceBlock(Block current) {
         // TODO: replace with actual block replacing
+        if (!Tags.limitableBlocks.contains(current)) {
+            return null;
+        }
         if (current == ModBlocks.limitedChest.get()) {
             return ModBlocks.limitedFurnace.get();
         }
-        if (current == ModBlocks.limitedFurnace.get()) {
-            return ModBlocks.limitedChest.get();
-        }
-        return null;
+        return ModBlocks.limitedChest.get();
     }
 
 }

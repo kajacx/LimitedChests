@@ -1,19 +1,6 @@
 package cz.kajacx.limitedchests.block;
 
-import cz.kajacx.limitedchests.LimitedChests;
-import cz.kajacx.limitedchests.gui.TabLimitedChests;
-import cz.kajacx.limitedchests.tile.TileLimitedChest;
-import cz.kajacx.limitedchests.util.Log;
 import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.InventoryHelper;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.world.World;
 
 public class BlockLimitedChest extends Block {
 

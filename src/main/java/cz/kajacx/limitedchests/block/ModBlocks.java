@@ -5,13 +5,10 @@ import cz.kajacx.limitedchests.util.Log;
 import cz.kajacx.limitedchests.util.Log.TraceLog;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
-import net.minecraft.block.AbstractBlock.Properties;
 import net.minecraft.block.material.Material;
-import net.minecraft.item.Item;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.RegistryObject;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
