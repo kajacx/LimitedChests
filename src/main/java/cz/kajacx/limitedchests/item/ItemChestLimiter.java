@@ -1,10 +1,12 @@
 package cz.kajacx.limitedchests.item;
 
+import java.lang.reflect.Field;
 import java.util.List;
 
 import javax.annotation.Nullable;
 
 import cz.kajacx.limitedchests.block.ModBlocks;
+import cz.kajacx.limitedchests.util.Log;
 import cz.kajacx.limitedchests.util.Tags;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -23,6 +25,16 @@ public class ItemChestLimiter extends Item {
 
     public ItemChestLimiter(Properties properties) {
         super(properties);
+        
+        try {
+            // Make this item not disappear when crafting.
+            Field craftingRemainingItemField = Item.class.getDeclaredField("craftingRemainingItem");
+            craftingRemainingItemField.setAccessible(true);
+            craftingRemainingItemField.set(this, this);
+            craftingRemainingItemField.setAccessible(false);
+        } catch (Exception ex) {
+            Log.logger.catching(ex);
+        }
     }
 
     @Override

@@ -7,7 +7,7 @@
   "item.limitedchests.limited_hopper": "Omezená násypka",
 
   "tooltip.limitedchests.hold_shift": "Podrž \u00A7eSHIFT\u00A7r pro více informací.",
-  "tooltip.limitedchests.chest_limiter": "Použij znovu s omezeným předmětem pro zrušení omezení.",
+  "tooltip.limitedchests.chest_limiter": "Použij znovu s omezeným předmětem pro zrušení omezení.\nTento předmět se při výrobě nespotřebuje.",
 
   "block.limitedchests.limited_chest": "Omezená truhla",
   "block.limitedchests.limited_furnace": "Omezená pec",
