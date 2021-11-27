@@ -1,6 +1,7 @@
 {
   "values": [
     "limitedchests:limited_chest",
-    "limitedchests:limited_furnace"
+    "limitedchests:limited_furnace",
+    "limitedchests:limited_hopper"
   ]
 }

@@ -28,6 +28,10 @@ public class ModItems {
         () -> new BlockItem(ModBlocks.limitedFurnace.get(), new Item.Properties().tab(TabLimitedChests.instance))
     );
 
+    public static final RegistryObject<Item> limitedHopper = ITEMS.register("limited_hopper",
+        () -> new BlockItem(ModBlocks.limitedHopper.get(), new Item.Properties().tab(TabLimitedChests.instance))
+    );
+
     public static void register(IEventBus eventBus) {
         try (TraceLog log = Log.enter("ModItems.register", eventBus)) {
             ITEMS.register(eventBus);

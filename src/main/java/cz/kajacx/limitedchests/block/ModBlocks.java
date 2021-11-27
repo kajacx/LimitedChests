@@ -5,6 +5,7 @@ import cz.kajacx.limitedchests.util.Log;
 import cz.kajacx.limitedchests.util.Log.TraceLog;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
+import net.minecraft.block.HopperBlock;
 import net.minecraft.block.material.Material;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -22,6 +23,10 @@ public class ModBlocks {
 
     public static final RegistryObject<Block> limitedFurnace = BLOCKS.register("limited_furnace", 
         () -> new Block(AbstractBlock.Properties.of(Material.STONE).harvestLevel(0).harvestTool(ToolType.PICKAXE).requiresCorrectToolForDrops().strength(3f))
+    );
+
+    public static final RegistryObject<Block> limitedHopper = BLOCKS.register("limited_hopper", 
+        () -> new HopperBlock(AbstractBlock.Properties.of(Material.METAL).harvestLevel(1).harvestTool(ToolType.PICKAXE).requiresCorrectToolForDrops().strength(3f))
     );
 
     public static void register(IEventBus eventBus) {

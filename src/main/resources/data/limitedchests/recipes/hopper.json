@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "limitedchests:chest_limiter"
+    },
+    {
+      "item": "limitedchests:limited_hopper"
+    }
+  ],
+  "result": {
+    "item": "minecraft:hopper"
+  }
+}
