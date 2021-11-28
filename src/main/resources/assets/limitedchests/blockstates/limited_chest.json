@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": { "model": "limitedchests:block/limited_chest" }
+    "": {
+      "model": "limitedchests:block/limited_chest"
+    }
   }
 }

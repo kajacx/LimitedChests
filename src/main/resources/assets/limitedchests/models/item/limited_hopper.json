@@ -1,3 +1,6 @@
 {
-  "parent":"limitedchests:block/limited_hopper"
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "limitedchests:item/limited_hopper"
+  }
 }
