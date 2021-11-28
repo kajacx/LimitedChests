@@ -6,7 +6,9 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import cz.kajacx.limitedchests.block.ModBlocks;
+import cz.kajacx.limitedchests.gui.TabLimitedChests;
 import cz.kajacx.limitedchests.util.Log;
+import cz.kajacx.limitedchests.util.Reflect;
 import cz.kajacx.limitedchests.util.Tags;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -23,16 +25,14 @@ import net.minecraft.world.World;
 
 public class ItemChestLimiter extends Item {
 
-    public ItemChestLimiter(Properties properties) {
-        super(properties);
+    public ItemChestLimiter() {
+        super(new Item.Properties().tab(TabLimitedChests.instance));
         
         try {
             // Make this item not disappear when crafting.
-            Field craftingRemainingItemField = Item.class.getDeclaredField("craftingRemainingItem");
-            craftingRemainingItemField.setAccessible(true);
-            craftingRemainingItemField.set(this, this);
-            craftingRemainingItemField.setAccessible(false);
+            Reflect.setField(this, "craftingRemainingItem", this);
         } catch (Exception ex) {
+            Log.logger.warn(Log.exceptionMarker, "Cannot set craftingRemainingItem to ItemChestLimiter");
             Log.logger.catching(ex);
         }
     }
@@ -40,7 +40,9 @@ public class ItemChestLimiter extends Item {
     @Override
     public void appendHoverText(ItemStack stack, World level, List<ITextComponent> tooltip, ITooltipFlag flag) {
         if (Screen.hasShiftDown()) {
-            tooltip.add(new TranslationTextComponent("tooltip.limitedchests.chest_limiter"));
+            tooltip.add(new TranslationTextComponent("tooltip.limitedchests.chest_limiter_line0"));
+            tooltip.add(new TranslationTextComponent("tooltip.limitedchests.chest_limiter_line1"));
+            tooltip.add(new TranslationTextComponent("tooltip.limitedchests.chest_limiter_line2"));
         } else {
             tooltip.add(new TranslationTextComponent("tooltip.limitedchests.hold_shift"));
         }
@@ -69,12 +71,12 @@ public class ItemChestLimiter extends Item {
         if (!Tags.limitableBlocks.contains(current)) {
             return null;
         }
-        if (current == ModBlocks.limitedChest.get()) {
-            return ModBlocks.limitedFurnace.get();
+        if (current == ModBlocks.LIMITED_CHEST.get()) {
+            return ModBlocks.LIMITED_FURNACE.get();
         }
-        if (current == ModBlocks.limitedFurnace.get()) {
-            return ModBlocks.limitedHopper.get();
+        if (current == ModBlocks.LIMITED_FURNACE.get()) {
+            return ModBlocks.LIMITED_HOPPER.get();
         }
-        return ModBlocks.limitedChest.get();
+        return ModBlocks.LIMITED_CHEST.get();
     }
 }

@@ -1,13 +1,18 @@
 package cz.kajacx.limitedchests.block;
 
+import java.util.function.Function;
+
 import cz.kajacx.limitedchests.LimitedChests;
+import cz.kajacx.limitedchests.item.LimitedBlockItem;
+import cz.kajacx.limitedchests.item.ModItems;
 import cz.kajacx.limitedchests.util.Log;
+import cz.kajacx.limitedchests.util.Reflect;
 import cz.kajacx.limitedchests.util.Log.TraceLog;
-import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.HopperBlock;
+import net.minecraft.block.AbstractBlock.Properties;
 import net.minecraft.block.material.Material;
-import net.minecraftforge.common.ToolType;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
@@ -17,17 +22,32 @@ public class ModBlocks {
 
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, LimitedChests.MODID);
 
-    public static final RegistryObject<Block> limitedChest = BLOCKS.register("limited_chest", 
-        () -> new Block(AbstractBlock.Properties.of(Material.WOOD).harvestLevel(0).harvestTool(ToolType.AXE).strength(2.5f))
-    );
+    public static final RegistryObject<Block> LIMITED_CHEST = registerBlock("limited_chest", Block::new, Blocks.CHEST);
+    public static final RegistryObject<Block> LIMITED_FURNACE = registerBlock("limited_furnace", Block::new, Blocks.FURNACE);
+    public static final RegistryObject<Block> LIMITED_HOPPER = registerBlock("limited_hopper", HopperBlock::new, Blocks.HOPPER);
 
-    public static final RegistryObject<Block> limitedFurnace = BLOCKS.register("limited_furnace", 
-        () -> new Block(AbstractBlock.Properties.of(Material.STONE).harvestLevel(0).harvestTool(ToolType.PICKAXE).requiresCorrectToolForDrops().strength(3f))
-    );
+    private static RegistryObject<Block> registerBlock(String name, Function<Properties, Block> constructor, Block baseBlock) {
+        RegistryObject<Block> registryObject = BLOCKS.register(name, () -> constructor.apply(copyProperties(baseBlock)));
+        ModItems.ITEMS.register(name, () -> new LimitedBlockItem(registryObject.get()));
+        return registryObject;
+    }
 
-    public static final RegistryObject<Block> limitedHopper = BLOCKS.register("limited_hopper", 
-        () -> new HopperBlock(AbstractBlock.Properties.of(Material.METAL).harvestLevel(1).harvestTool(ToolType.PICKAXE).requiresCorrectToolForDrops().strength(3f))
-    );
+    private static Properties copyProperties(Block baseBlock) {
+        try {
+            Properties copy = Properties.copy(baseBlock); //TODO: simply returning this copy doesn't work. WHY???
+            Properties properties = Properties.of(baseBlock.defaultBlockState().getMaterial())
+                .strength((float) Reflect.getField(copy, "destroyTime"), (float) Reflect.getField(copy, "explosionResistance"))
+                .harvestLevel((int) Reflect.getField(copy, "harvestLevel"));
+            if ((boolean) Reflect.getField(copy, "requiresCorrectToolForDrops")) {
+                properties.requiresCorrectToolForDrops();
+            }
+            return properties;
+        } catch (Exception ex) {
+            Log.logger.warn(Log.exceptionMarker, "Failed to copy properties of block: '{}'", baseBlock);
+            Log.logger.catching(ex);
+            return Properties.of(Material.WOOD);
+        }
+    }
 
     public static void register(IEventBus eventBus) {
         try (TraceLog log = Log.enter("ModBlocks.register", eventBus)) {

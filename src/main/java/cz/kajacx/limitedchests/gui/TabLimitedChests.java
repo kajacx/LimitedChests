@@ -3,7 +3,6 @@ package cz.kajacx.limitedchests.gui;
 import cz.kajacx.limitedchests.LimitedChests;
 import cz.kajacx.limitedchests.item.ModItems;
 import net.minecraft.item.ItemStack;
-
 import net.minecraft.item.ItemGroup;
 
 public class TabLimitedChests extends ItemGroup {
@@ -16,6 +15,6 @@ public class TabLimitedChests extends ItemGroup {
 
     @Override
     public ItemStack makeIcon() {
-        return new ItemStack(ModItems.chestLimiter.get());
+        return new ItemStack(ModItems.CHEST_LIMITER.get());
     }
 }

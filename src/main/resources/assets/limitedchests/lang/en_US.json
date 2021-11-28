@@ -4,7 +4,9 @@
   "item.limitedchests.chest_limiter": "Chest limiter",
 
   "tooltip.limitedchests.hold_shift": "Hold \u00A7eSHIFT\u00A7r for more information.",
-  "tooltip.limitedchests.chest_limiter": "Craft again with a limited item to unlimit it.\nCrafting does not consume this item.",
+  "tooltip.limitedchests.chest_limiter_line0": "Craft again with a limited item to unlimit it.",
+  "tooltip.limitedchests.chest_limiter_line1": "Crafting does not consume this item.",
+  "tooltip.limitedchests.chest_limiter_line2": "Use while sneaking to limit or unlimit existing blocks.",
 
   "block.limitedchests.limited_chest": "Limited chest",
   "block.limitedchests.limited_furnace": "Limited furnace",

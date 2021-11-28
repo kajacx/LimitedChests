@@ -4,7 +4,9 @@
   "item.limitedchests.chest_limiter": "Omezovač truhel",
 
   "tooltip.limitedchests.hold_shift": "Podrž \u00A7eSHIFT\u00A7r pro více informací.",
-  "tooltip.limitedchests.chest_limiter": "Použij znovu s omezeným předmětem pro zrušení omezení.\nTento předmět se při výrobě nespotřebuje.",
+  "tooltip.limitedchests.chest_limiter_line0": "Použij znovu s omezeným předmětem pro zrušení omezení.",
+  "tooltip.limitedchests.chest_limiter_line1": "Tento předmět se při výrobě nespotřebuje.",
+  "tooltip.limitedchests.chest_limiter_line2": "Použij při plížení pro (zrušení) omezení existujících bloků.",
 
   "block.limitedchests.limited_chest": "Omezená truhla",
   "block.limitedchests.limited_furnace": "Omezená pec",

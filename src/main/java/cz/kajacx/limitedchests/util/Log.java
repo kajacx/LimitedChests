@@ -17,6 +17,8 @@ public class Log {
 
     public static final Marker badArgsMarker = MarkerManager.getMarker("BAD_ARGUMENTS");
     public static final Marker badFieldsMarker = MarkerManager.getMarker("BAD_FIELDS");
+    public static final Marker missingFieldMarker = MarkerManager.getMarker("MISSING_FIELD");
+    public static final Marker exceptionMarker = MarkerManager.getMarker("EXCEPTION");
 
     private static final Marker methodTraceMarker = MarkerManager.getMarker("METHOD_TRACE");
     private static final List<TraceLog> traceLogStack = new ArrayList<>();
