@@ -3,7 +3,8 @@
   "textures": {
     "top": "limitedchests:block/limited_hopper_top",
     "side": "limitedchests:block/limited_hopper_outside",
-    "inside": "limitedchests:block/limited_hopper_inside"
+    "inside": "limitedchests:block/limited_hopper_inside",
+    "particle": "limitedchests:block/limited_hopper_outside"
   },
   "elements": [
     {
