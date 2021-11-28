@@ -1,10 +1,7 @@
 {
-  "itemGroup.limitedchests": "Omezené Truhly (Limited Chests)",
+  "itemGroup.limitedchests": "Omezené Truhly",
 
   "item.limitedchests.chest_limiter": "Omezovač truhel",
-  "item.limitedchests.limited_chest": "Omezená truhla",
-  "item.limitedchests.limited_furnace": "Omezená pec",
-  "item.limitedchests.limited_hopper": "Omezená násypka",
 
   "tooltip.limitedchests.hold_shift": "Podrž \u00A7eSHIFT\u00A7r pro více informací.",
   "tooltip.limitedchests.chest_limiter": "Použij znovu s omezeným předmětem pro zrušení omezení.\nTento předmět se při výrobě nespotřebuje.",

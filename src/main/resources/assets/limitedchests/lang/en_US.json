@@ -2,9 +2,6 @@
   "itemGroup.limitedchests": "Limited Chests",
 
   "item.limitedchests.chest_limiter": "Chest limiter",
-  "item.limitedchests.limited_chest": "Limited chest",
-  "item.limitedchests.limited_furnace": "Limited furnace",
-  "item.limitedchests.limited_hopper": "Limited hopper",
 
   "tooltip.limitedchests.hold_shift": "Hold \u00A7eSHIFT\u00A7r for more information.",
   "tooltip.limitedchests.chest_limiter": "Craft again with a limited item to unlimit it.\nCrafting does not consume this item.",
