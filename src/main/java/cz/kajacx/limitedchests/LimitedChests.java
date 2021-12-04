@@ -33,4 +33,5 @@ public class LimitedChests {
             MinecraftForge.EVENT_BUS.register(this);
         }
     }
+
 }

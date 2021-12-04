@@ -32,7 +32,6 @@ public class ItemChestLimiter extends Item {
             // Make this item not disappear when crafting.
             Reflect.setField(this, "craftingRemainingItem", this);
         } catch (Exception ex) {
-            Log.logger.warn(Log.exceptionMarker, "Cannot set craftingRemainingItem to ItemChestLimiter");
             Log.logger.catching(ex);
         }
     }
@@ -47,7 +46,7 @@ public class ItemChestLimiter extends Item {
             tooltip.add(new TranslationTextComponent("tooltip.limitedchests.hold_shift"));
         }
     }
-    
+
     @Override
     public ActionResultType onItemUseFirst(ItemStack stack, ItemUseContext context) {
         World level = context.getLevel();
@@ -79,4 +78,5 @@ public class ItemChestLimiter extends Item {
         }
         return ModBlocks.LIMITED_CHEST.get();
     }
+
 }

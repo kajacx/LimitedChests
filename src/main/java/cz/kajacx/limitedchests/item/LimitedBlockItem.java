@@ -9,4 +9,5 @@ public class LimitedBlockItem extends BlockItem {
     public LimitedBlockItem(Block block) {
         super(block, new Properties().tab(TabLimitedChests.instance));
     }
+
 }

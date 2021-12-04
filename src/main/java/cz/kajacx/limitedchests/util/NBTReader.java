@@ -93,4 +93,5 @@ public class NBTReader {
         ItemStack itemstack = ItemStack.of(nbt);
         return itemstack.getItem() != null ? itemstack : ItemStack.EMPTY.copy();
     }
+
 }

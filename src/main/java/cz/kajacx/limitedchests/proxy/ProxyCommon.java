@@ -14,4 +14,5 @@ public abstract class ProxyCommon {
             ModBlocks.register(eventBus);
         }
     }
+
 }

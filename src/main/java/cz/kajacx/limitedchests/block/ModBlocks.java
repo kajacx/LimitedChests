@@ -10,9 +10,10 @@ import cz.kajacx.limitedchests.util.Reflect;
 import cz.kajacx.limitedchests.util.Log.TraceLog;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.HopperBlock;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.AbstractBlock.Properties;
 import net.minecraft.block.material.Material;
+import net.minecraftforge.common.ToolType;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
@@ -23,7 +24,7 @@ public class ModBlocks {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, LimitedChests.MODID);
 
     public static final RegistryObject<Block> LIMITED_CHEST = registerBlock("limited_chest", Block::new, Blocks.CHEST);
-    public static final RegistryObject<Block> LIMITED_FURNACE = registerBlock("limited_furnace", Block::new, Blocks.FURNACE);
+    public static final RegistryObject<Block> LIMITED_FURNACE = registerBlock("limited_furnace", BlockLimitedFurnace::new, Blocks.FURNACE);
     public static final RegistryObject<Block> LIMITED_HOPPER = registerBlock("limited_hopper", BlockLimitedHopper::new, Blocks.HOPPER);
 
     private static RegistryObject<Block> registerBlock(String name, Function<Properties, Block> constructor, Block baseBlock) {
@@ -37,9 +38,17 @@ public class ModBlocks {
             Properties copy = Properties.copy(baseBlock); //TODO: simply returning this copy doesn't work. WHY???
             Properties properties = Properties.of(baseBlock.defaultBlockState().getMaterial())
                 .strength((float) Reflect.getField(copy, "destroyTime"), (float) Reflect.getField(copy, "explosionResistance"))
-                .harvestLevel((int) Reflect.getField(copy, "harvestLevel"));
+                .harvestTool((ToolType) Reflect.getField(copy, "harvestTool"))
+                .harvestLevel((int) Reflect.getField(copy, "harvestLevel"))
+                .sound((SoundType) Reflect.getField(copy, "soundType"));
             if ((boolean) Reflect.getField(copy, "requiresCorrectToolForDrops")) {
                 properties.requiresCorrectToolForDrops();
+            }
+            if (!(boolean) Reflect.getField(copy, "hasCollision")) {
+                properties.noCollission();
+            }
+            if (!(boolean) Reflect.getField(copy, "canOcclude")) {
+                properties.noOcclusion();
             }
             return properties;
         } catch (Exception ex) {
@@ -54,4 +63,5 @@ public class ModBlocks {
             BLOCKS.register(eventBus);
         }
     }
+    
 }

@@ -12,4 +12,5 @@ public class ProxyClient extends ProxyCommon {
             super.register(eventBus);
         }
     }
+
 }

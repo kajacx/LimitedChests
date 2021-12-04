@@ -1,12 +1,12 @@
 package cz.kajacx.limitedchests.block;
 
-import net.minecraft.block.HopperBlock;
+import net.minecraft.block.FurnaceBlock;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockReader;
 
-public class BlockLimitedHopper extends HopperBlock {
+public class BlockLimitedFurnace extends FurnaceBlock {
 
-    public BlockLimitedHopper(Properties properties) {
+    public BlockLimitedFurnace(Properties properties) {
         super(properties);
     }
 

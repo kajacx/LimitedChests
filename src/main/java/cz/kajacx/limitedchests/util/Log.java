@@ -82,5 +82,7 @@ public class Log {
             logger.trace(methodTraceMarker, "Leaving {}", methodName);
             --traceLogIndex;
         }
+
     }
+
 }
