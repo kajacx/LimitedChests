@@ -26,6 +26,7 @@ public class ModBlocks {
     public static final RegistryObject<Block> LIMITED_CHEST = registerBlock("limited_chest", Block::new, Blocks.CHEST);
     public static final RegistryObject<Block> LIMITED_FURNACE = registerBlock("limited_furnace", BlockLimitedFurnace::new, Blocks.FURNACE);
     public static final RegistryObject<Block> LIMITED_HOPPER = registerBlock("limited_hopper", BlockLimitedHopper::new, Blocks.HOPPER);
+    public static final RegistryObject<Block> LIMITED_DROPPER = registerBlock("limited_dropper", BlockLimitedDropper::new, Blocks.DROPPER);
 
     private static RegistryObject<Block> registerBlock(String name, Function<Properties, Block> constructor, Block baseBlock) {
         RegistryObject<Block> registryObject = BLOCKS.register(name, () -> constructor.apply(copyProperties(baseBlock)));

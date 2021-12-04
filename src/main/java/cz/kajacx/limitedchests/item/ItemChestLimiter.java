@@ -76,6 +76,9 @@ public class ItemChestLimiter extends Item {
         if (current == ModBlocks.LIMITED_FURNACE.get()) {
             return ModBlocks.LIMITED_HOPPER.get();
         }
+        if (current == ModBlocks.LIMITED_HOPPER.get()) {
+            return ModBlocks.LIMITED_DROPPER.get();
+        }
         return ModBlocks.LIMITED_CHEST.get();
     }
 

@@ -1,0 +1,26 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "limitedchests:block/limited_dropper_vertical",
+      "x": 180
+    },
+    "facing=east": {
+      "model": "limitedchests:block/limited_dropper",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "limitedchests:block/limited_dropper"
+    },
+    "facing=south": {
+      "model": "limitedchests:block/limited_dropper",
+      "y": 180
+    },
+    "facing=up": {
+      "model": "limitedchests:block/limited_dropper_vertical"
+    },
+    "facing=west": {
+      "model": "limitedchests:block/limited_dropper",
+      "y": 270
+    }
+  }
+}
