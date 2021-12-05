@@ -1,6 +1,5 @@
 package cz.kajacx.limitedchests.client.render.items;
 
-
 public final class ItemRenderRegister {
 
     public static void preInit() {

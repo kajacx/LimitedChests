@@ -1,6 +1,5 @@
 package cz.kajacx.limitedchests.client.render.tileentities;
 
-
 public class LimitedChestEntityRenderer /*extends TileEntitySpecialRenderer<TileLimitedChest>*/ {
     //private static final ResourceLocation texture = new ResourceLocation("limitedchests", "textures/tile/limited_chest.png");
     //private ModelChest model = new ModelChest();

@@ -1,6 +1,5 @@
 package cz.kajacx.limitedchests.client.render.blocks;
 
-
 import net.minecraft.block.Block;
 
 public final class BlockRenderRegister {

@@ -7,4 +7,5 @@ public class TileEntitiesRegister {
 
         //ClientRegistry.bindTileEntitySpecialRenderer(TileLimitedChest.class, new LimitedChestEntityRenderer());
     }
+    
 }

@@ -6,8 +6,6 @@ import javax.annotation.Nullable;
 
 import cz.kajacx.limitedchests.block.ModBlocks;
 import cz.kajacx.limitedchests.gui.TabLimitedChests;
-import cz.kajacx.limitedchests.util.Log;
-import cz.kajacx.limitedchests.util.Reflect;
 import cz.kajacx.limitedchests.util.Tags;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -25,7 +23,7 @@ import net.minecraft.world.World;
 public class ItemChestLimiter extends Item {
 
     public ItemChestLimiter() {
-        super(new Item.Properties().tab(TabLimitedChests.instance));
+        super(new Item.Properties().tab(TabLimitedChests.INSTANCE));
     }
 
     @Override

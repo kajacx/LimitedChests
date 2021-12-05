@@ -11,78 +11,63 @@ import org.apache.logging.log4j.MarkerManager;
 
 import cz.kajacx.limitedchests.LimitedChests;
 
-public class Log {
+public class Log implements AutoCloseable {
 
-    public static final Logger logger = LogManager.getLogger(LimitedChests.MODID);
+    public static final Logger LOGGER = LogManager.getLogger(LimitedChests.MODID);
 
     public static final Marker badArgsMarker = MarkerManager.getMarker("BAD_ARGUMENTS");
     public static final Marker badFieldsMarker = MarkerManager.getMarker("BAD_FIELDS");
     public static final Marker missingFieldMarker = MarkerManager.getMarker("MISSING_FIELD");
     public static final Marker exceptionMarker = MarkerManager.getMarker("EXCEPTION");
 
+
     private static final Marker methodTraceMarker = MarkerManager.getMarker("METHOD_TRACE");
-    private static final List<TraceLog> traceLogStack = new ArrayList<>();
+    private static final List<Log> traceLogStack = new ArrayList<>();
+    private static final List<String> paddingStack = new ArrayList<>();
     private static int traceLogIndex = 0;
+    
+    private String methodName;
 
-    private static TraceLog getTraceLog() {
+    static {
+        paddingStack.add("");
+    }
+
+    private static Log open(String methodName) {
         while (traceLogStack.size() <= traceLogIndex) {
-            traceLogStack.add(new TraceLog());
+            traceLogStack.add(new Log());
+            paddingStack.add(paddingStack.get(paddingStack.size() - 1) + '#');
         }
-        return traceLogStack.get(traceLogIndex);
+        Log log = traceLogStack.get(traceLogIndex);
+
+        log.methodName = methodName;
+        ++traceLogIndex;
+        return log;
     }
 
-    public static TraceLog enter(String methodName) {
-        return getTraceLog().enter(methodName);
+    public static Log enter(String methodName) {
+        LOGGER.trace(methodTraceMarker, "{}> Entering into {}", paddingStack.get(traceLogIndex), methodName);
+        return open(methodName);
     }
 
-    public static TraceLog enter(String methodName, Object arg0) {
-        return getTraceLog().enter(methodName, arg0);
+    public static Log enter(String methodName, Object arg0) {
+        LOGGER.trace(methodTraceMarker, "{}> Entering into {} with args: {}", paddingStack.get(traceLogIndex), methodName, arg0);
+        return open(methodName);
     }
 
-    public static TraceLog enter(String methodName, Object arg0, Object arg1) {
-        return getTraceLog().enter(methodName, arg0, arg1);
+    public static Log enter(String methodName, Object arg0, Object arg1) {
+        LOGGER.trace(methodTraceMarker, "{}> Entering into {} with args: {}, {}", paddingStack.get(traceLogIndex), methodName, arg0, arg1);
+        return open(methodName);
     }
 
-    public static TraceLog enter(String methodName, Object arg0, Object arg1, Object arg2) {
-        return getTraceLog().enter(methodName, arg0, arg1, arg2);
+    public static Log enter(String methodName, Object arg0, Object arg1, Object arg2) {
+        LOGGER.trace(methodTraceMarker, "{}> Entering into {} with args: {}, {}, {}", paddingStack.get(traceLogIndex), methodName, arg0, arg1, arg2);
+        return open(methodName);
     }
 
-    public static class TraceLog implements AutoCloseable {
-
-        private String methodName;
-
-        private TraceLog open(String methodName) {
-            this.methodName = methodName;
-            ++traceLogIndex;
-            return this;
-        }
-
-        private TraceLog enter(String methodName) {
-            logger.trace(methodTraceMarker, "Entering into {}", methodName);
-            return open(methodName);
-        }
-
-        private TraceLog enter(String methodName, Object arg0) {
-            logger.trace(methodTraceMarker, "Entering into {} with args: {}", methodName, arg0);
-            return open(methodName);
-        }
-
-        private TraceLog enter(String methodName, Object arg0, Object arg1) {
-            logger.trace(methodTraceMarker, "Entering into {} with args: {}, {}", methodName, arg0, arg1);
-            return open(methodName);
-        }
-
-        private TraceLog enter(String methodName, Object arg0, Object arg1, Object arg2) {
-            logger.trace(methodTraceMarker, "Entering into {} with args: {}, {}, {}", methodName, arg0, arg1, arg2);
-            return open(methodName);
-        }
-
-        @Override
-        public void close() {
-            logger.trace(methodTraceMarker, "Leaving {}", methodName);
-            --traceLogIndex;
-        }
-
+    @Override
+    public void close() {
+        --traceLogIndex;
+        LOGGER.trace(methodTraceMarker, "{}> Leaving {}", paddingStack.get(traceLogIndex), methodName);
     }
 
 }

@@ -24,7 +24,7 @@ public class Reflect {
         }
 
         // Nothing was found
-        Log.logger.warn(Log.missingFieldMarker, "Object '{}' does not have field '{}'.", object, fieldName);
+        Log.LOGGER.warn(Log.missingFieldMarker, "Object '{}' does not have field '{}'.", object, fieldName);
         return null;
     }
 
@@ -40,7 +40,7 @@ public class Reflect {
         try {
             value = field.get(object);
         } catch (Exception ex) {
-            Log.logger.catching(ex);
+            Log.LOGGER.catching(ex);
         }
         if (!wasAccessible) {
             field.setAccessible(false);
@@ -59,7 +59,7 @@ public class Reflect {
         try {
             field.set(object, value);
         } catch (Exception ex) {
-            Log.logger.catching(ex);
+            Log.LOGGER.catching(ex);
         }
         if (!wasAccessible) {
             field.setAccessible(false);

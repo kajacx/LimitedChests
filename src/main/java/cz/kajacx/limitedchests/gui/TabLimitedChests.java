@@ -2,14 +2,14 @@ package cz.kajacx.limitedchests.gui;
 
 import cz.kajacx.limitedchests.LimitedChests;
 import cz.kajacx.limitedchests.item.ModItems;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
 
 public class TabLimitedChests extends ItemGroup {
 
-    public static final TabLimitedChests instance = new TabLimitedChests(LimitedChests.MODID);
+    public static final TabLimitedChests INSTANCE = new TabLimitedChests(LimitedChests.MODID);
 
-    public TabLimitedChests(String label) {
+    private TabLimitedChests(String label) {
         super(label);
     }
 

@@ -1,6 +1,5 @@
 {
-  "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "limitedchests:block/limited_chest"
+    "particle": "minecraft:block/oak_planks"
   }
 }

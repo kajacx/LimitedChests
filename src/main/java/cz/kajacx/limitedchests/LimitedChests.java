@@ -5,7 +5,6 @@ import cz.kajacx.limitedchests.proxy.ProxyClient;
 import cz.kajacx.limitedchests.proxy.ProxyCommon;
 import cz.kajacx.limitedchests.proxy.ProxyServer;
 import cz.kajacx.limitedchests.util.Log;
-import cz.kajacx.limitedchests.util.Log.TraceLog;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -20,10 +19,10 @@ public class LimitedChests {
     public static final String NAME = "Limited Chests";
     public static final String VERSION = "1.16.5-0.1.0";
 
-    public static ProxyCommon proxy;
+    private static ProxyCommon proxy;
 
     public LimitedChests() {
-        try (TraceLog log = Log.enter("LimitedChests.constructor")) {
+        try (Log log = Log.enter("LimitedChests.constructor")) {
             DistExecutor.unsafeCallWhenOn(Dist.CLIENT, () -> () -> proxy = new ProxyClient());
             DistExecutor.unsafeCallWhenOn(Dist.DEDICATED_SERVER, () -> () -> proxy = new ProxyServer());
             
