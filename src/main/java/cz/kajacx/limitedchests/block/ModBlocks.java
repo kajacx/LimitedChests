@@ -29,14 +29,14 @@ public class ModBlocks {
     public static final RegistryObject<Block> LIMITED_DROPPER = registerBlock("limited_dropper", BlockLimitedDropper::new, Blocks.DROPPER);
 
     private static RegistryObject<Block> registerBlock(String name, Function<Properties, Block> constructor, Block baseBlock) {
-        RegistryObject<Block> registryObject = BLOCKS.register(name, () -> constructor.apply(copyProperties(baseBlock)));
+        RegistryObject<Block> registryObject = BLOCKS.register(name, () -> constructor.apply(Properties.copy(baseBlock)));
         ModItems.ITEMS.register(name, () -> new LimitedBlockItem(registryObject.get()));
         return registryObject;
     }
 
     private static Properties copyProperties(Block baseBlock) {
         try {
-            Properties copy = Properties.copy(baseBlock); //TODO: simply returning this copy doesn't work. WHY???
+            Properties copy = Properties.copy(baseBlock);
             Properties properties = Properties.of(baseBlock.defaultBlockState().getMaterial())
                 .strength((float) Reflect.getField(copy, "destroyTime"), (float) Reflect.getField(copy, "explosionResistance"))
                 .harvestTool((ToolType) Reflect.getField(copy, "harvestTool"))
@@ -64,5 +64,5 @@ public class ModBlocks {
             BLOCKS.register(eventBus);
         }
     }
-    
+
 }

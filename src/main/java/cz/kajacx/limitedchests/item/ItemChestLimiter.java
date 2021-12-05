@@ -1,6 +1,5 @@
 package cz.kajacx.limitedchests.item;
 
-import java.lang.reflect.Field;
 import java.util.List;
 
 import javax.annotation.Nullable;
@@ -27,13 +26,6 @@ public class ItemChestLimiter extends Item {
 
     public ItemChestLimiter() {
         super(new Item.Properties().tab(TabLimitedChests.instance));
-        
-        try {
-            // Make this item not disappear when crafting.
-            Reflect.setField(this, "craftingRemainingItem", this);
-        } catch (Exception ex) {
-            Log.logger.catching(ex);
-        }
     }
 
     @Override
@@ -48,18 +40,29 @@ public class ItemChestLimiter extends Item {
     }
 
     @Override
+    public boolean hasContainerItem(ItemStack stack) {
+        return true;
+    }
+
+    public ItemStack getContainerItem(ItemStack stack) {
+        return new ItemStack(ModItems.CHEST_LIMITER.get(), 1);
+    }
+
+    @Override
     public ActionResultType onItemUseFirst(ItemStack stack, ItemUseContext context) {
         World level = context.getLevel();
 
-        if (!level.isClientSide()) {
-            BlockPos pos = context.getClickedPos();
-            BlockState state = level.getBlockState(pos);
-            
-            Block replacedBlock = tryReplaceBlock(state.getBlock());
-            if (replacedBlock != null) {
-                level.setBlock(pos, replacedBlock.defaultBlockState(), 0);
-                return ActionResultType.SUCCESS;
-            }
+        if (level.isClientSide() || !context.getPlayer().isShiftKeyDown()) {
+            return super.onItemUseFirst(stack, context);
+        }
+
+        BlockPos pos = context.getClickedPos();
+        BlockState state = level.getBlockState(pos);
+        
+        Block replacedBlock = tryReplaceBlock(state.getBlock());
+        if (replacedBlock != null) {
+            level.setBlock(pos, replacedBlock.defaultBlockState(), 0);
+            return ActionResultType.SUCCESS;
         }
 
         return super.onItemUseFirst(stack, context);
