@@ -27,7 +27,7 @@ public class LimitedSlot extends Slot {
     @Override
     public int getMaxStackSize(ItemStack stack) {
         if (stack == null) {
-            Log.LOGGER.warn(Log.badArgsMarker, "LimitedChestSlot.getMaxStackSize stack: {}", stack);
+            Log.LOGGER.warn(Log.MARKER_ARGS, "LimitedChestSlot.getMaxStackSize stack: {}", stack);
             stack = ItemStack.EMPTY.copy();
         }
 

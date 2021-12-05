@@ -1,4 +1,3 @@
-
 package cz.kajacx.limitedchests.util;
 
 import java.util.ArrayList;
@@ -15,29 +14,26 @@ public class Log implements AutoCloseable {
 
     public static final Logger LOGGER = LogManager.getLogger(LimitedChests.MODID);
 
-    public static final Marker badArgsMarker = MarkerManager.getMarker("BAD_ARGUMENTS");
-    public static final Marker badFieldsMarker = MarkerManager.getMarker("BAD_FIELDS");
-    public static final Marker missingFieldMarker = MarkerManager.getMarker("MISSING_FIELD");
-    public static final Marker exceptionMarker = MarkerManager.getMarker("EXCEPTION");
+    public static final Marker MARKER_ARGS = MarkerManager.getMarker("INVALID_ARGUMENTS");
+    public static final Marker MARKER_FIELDS = MarkerManager.getMarker("INVALID_FIELDS");
 
-
-    private static final Marker methodTraceMarker = MarkerManager.getMarker("METHOD_TRACE");
-    private static final List<Log> traceLogStack = new ArrayList<>();
-    private static final List<String> paddingStack = new ArrayList<>();
+    private static final Marker MARKER_TRACE = MarkerManager.getMarker("METHOD_TRACE");
+    private static final List<Log> TRACE_STACK = new ArrayList<>();
+    private static final List<String> PADDING_STACK = new ArrayList<>();
     private static int traceLogIndex = 0;
     
     private String methodName;
 
     static {
-        paddingStack.add("");
+        PADDING_STACK.add("");
     }
 
     private static Log open(String methodName) {
-        while (traceLogStack.size() <= traceLogIndex) {
-            traceLogStack.add(new Log());
-            paddingStack.add(paddingStack.get(paddingStack.size() - 1) + '#');
+        while (TRACE_STACK.size() <= traceLogIndex) {
+            TRACE_STACK.add(new Log());
+            PADDING_STACK.add(PADDING_STACK.get(PADDING_STACK.size() - 1) + '#');
         }
-        Log log = traceLogStack.get(traceLogIndex);
+        Log log = TRACE_STACK.get(traceLogIndex);
 
         log.methodName = methodName;
         ++traceLogIndex;
@@ -45,29 +41,45 @@ public class Log implements AutoCloseable {
     }
 
     public static Log enter(String methodName) {
-        LOGGER.trace(methodTraceMarker, "{}> Entering into {}", paddingStack.get(traceLogIndex), methodName);
+        LOGGER.trace(MARKER_TRACE, "{}> Entering into {}",
+            PADDING_STACK.get(traceLogIndex), methodName);
         return open(methodName);
     }
 
     public static Log enter(String methodName, Object arg0) {
-        LOGGER.trace(methodTraceMarker, "{}> Entering into {} with args: {}", paddingStack.get(traceLogIndex), methodName, arg0);
+        LOGGER.trace(MARKER_TRACE, "{}> Entering into {} with args: {}",
+            PADDING_STACK.get(traceLogIndex), methodName, arg0);
         return open(methodName);
     }
 
     public static Log enter(String methodName, Object arg0, Object arg1) {
-        LOGGER.trace(methodTraceMarker, "{}> Entering into {} with args: {}, {}", paddingStack.get(traceLogIndex), methodName, arg0, arg1);
+        LOGGER.trace(MARKER_TRACE, "{}> Entering into {} with args: {}, {}",
+            PADDING_STACK.get(traceLogIndex), methodName, arg0, arg1);
         return open(methodName);
     }
 
     public static Log enter(String methodName, Object arg0, Object arg1, Object arg2) {
-        LOGGER.trace(methodTraceMarker, "{}> Entering into {} with args: {}, {}, {}", paddingStack.get(traceLogIndex), methodName, arg0, arg1, arg2);
+        LOGGER.trace(MARKER_TRACE, "{}> Entering into {} with args: {}, {}, {}",
+            PADDING_STACK.get(traceLogIndex), methodName, arg0, arg1, arg2);
+        return open(methodName);
+    }
+
+    public static Log enter(String methodName, Object arg0, Object arg1, Object arg2, Object arg3) {
+        LOGGER.trace(MARKER_TRACE, "{}> Entering into {} with args: {}, {}, {}, {}",
+            PADDING_STACK.get(traceLogIndex), methodName, arg0, arg1, arg2, arg3);
+        return open(methodName);
+    }
+
+    public static Log enter(String methodName, Object arg0, Object arg1, Object arg2, Object arg3, Object arg4) {
+        LOGGER.trace(MARKER_TRACE, "{}> Entering into {} with args: {}, {}, {}, {}, {}",
+            PADDING_STACK.get(traceLogIndex), methodName, arg0, arg1, arg2, arg3, arg4);
         return open(methodName);
     }
 
     @Override
     public void close() {
         --traceLogIndex;
-        LOGGER.trace(methodTraceMarker, "{}> Leaving {}", paddingStack.get(traceLogIndex), methodName);
+        LOGGER.trace(MARKER_TRACE, "{}> Leaving {}", PADDING_STACK.get(traceLogIndex), methodName);
     }
 
 }

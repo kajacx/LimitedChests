@@ -1,6 +1,6 @@
 package cz.kajacx.limitedchests.tile;
 
-import cz.kajacx.limitedchests.container.ContainerLimitedChest;
+import cz.kajacx.limitedchests.container.ContainerLimitedFurnace;
 import cz.kajacx.limitedchests.limit.ILimitableTile;
 import cz.kajacx.limitedchests.limit.InventoryLimits;
 import cz.kajacx.limitedchests.override.Overrides;
@@ -8,30 +8,20 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.ChestTileEntity;
+import net.minecraft.tileentity.FurnaceTileEntity;
 
-public class TileLimitedChest extends ChestTileEntity implements ILimitableTile {
-
+public class TileLimitedFurnace extends FurnaceTileEntity implements ILimitableTile {
+    
     private InventoryLimits limits;
 
-    public TileLimitedChest() {
-        super(ModTiles.LIMITED_CHEST.get());
-
+    public TileLimitedFurnace() {
         limits = new InventoryLimits(this.getContainerSize());
-        
-        //test
-        limits.setFilter(0, Items.DIAMOND, 10);
-        limits.setRestrict(1, Items.CARROT, 11);
-        limits.setCount(2, 12);
-        for (int i = 3; i < 5; i++) {
-            limits.setCount(i, i + 10);
-        }
     }
     
+    @Override
     protected Container createMenu(int windowId, PlayerInventory playerInventory) {
-        return ContainerLimitedChest.threeRows(windowId, playerInventory);
+        return new ContainerLimitedFurnace(windowId, playerInventory);
     }
 
     @Override
@@ -58,5 +48,5 @@ public class TileLimitedChest extends ChestTileEntity implements ILimitableTile 
     public void load(BlockState state, CompoundNBT compound) {
         Overrides.load(super::load, limits, state, compound);
     }
-
+    
 }

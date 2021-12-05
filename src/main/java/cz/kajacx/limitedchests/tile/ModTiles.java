@@ -17,10 +17,13 @@ public class ModTiles {
 
     public static final DeferredRegister<TileEntityType<?>> TILES = DeferredRegister.create(ForgeRegistries.TILE_ENTITIES, LimitedChests.MODID);
 
-    public static final RegistryObject<TileEntityType<TileLimitedChest>> LIMITED_CHEST = register("limited_chest", TileLimitedChest::new, ModBlocks.LIMITED_CHEST);
+    public static final RegistryObject<TileEntityType<TileLimitedChest>> LIMITED_CHEST =
+        register("limited_chest", TileLimitedChest::new, ModBlocks.LIMITED_CHEST);
+
+    public static final RegistryObject<TileEntityType<TileLimitedFurnace>> LIMITED_FURNACE =
+        register("limited_furnace", TileLimitedFurnace::new, ModBlocks.LIMITED_FURNACE);
 
     public static <T extends TileEntity> RegistryObject<TileEntityType<T>> register(String name, Supplier<T> constructor, RegistryObject<Block> block) {
-       //Type<?> type = Util.fetchChoiceType(TypeReferences.BLOCK_ENTITY, name);
        return TILES.register(name, () -> TileEntityType.Builder.of(constructor, block.get()).build(null));
     }
 

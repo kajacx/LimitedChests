@@ -24,7 +24,7 @@ public class Reflect {
         }
 
         // Nothing was found
-        Log.LOGGER.warn(Log.missingFieldMarker, "Object '{}' does not have field '{}'.", object, fieldName);
+        Log.LOGGER.warn(Log.MARKER_FIELDS, "Object '{}' does not have field '{}'.", object, fieldName);
         return null;
     }
 

@@ -17,6 +17,8 @@ public class ModContainers {
 
     public static RegistryObject<ContainerType<ContainerLimitedChest>> LIMITED_CHEST = register("limited_chest", ContainerLimitedChest::threeRows);
 
+    public static RegistryObject<ContainerType<ContainerLimitedFurnace>> LIMITED_FURNACE = register("limited_furnace", ContainerLimitedFurnace::create);
+
     public static <T extends Container>RegistryObject<ContainerType<T>> register(String name, IContainerFactory<T> factory) {
         return CONTAINERS.register(name, () -> IForgeContainerType.create(factory));
     }

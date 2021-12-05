@@ -62,7 +62,7 @@ public class InventoryLimits {
 
     public int getMaxSize(int index) {
         if (index < 0 || index >= slotLimits.length) {
-            Log.LOGGER.warn(Log.badArgsMarker, "InventoryLimits.getMaxSize index: {}", index);
+            Log.LOGGER.warn(Log.MARKER_ARGS, "InventoryLimits.getMaxSize index: {}", index);
             return 0;
         }
 
@@ -71,7 +71,7 @@ public class InventoryLimits {
 
     public int getMaxSize(int index, ItemStack stack) {
         if (index < 0 || index >= slotLimits.length || stack == null) {
-            Log.LOGGER.warn(Log.badArgsMarker, "InventoryLimits.getMaxSize index: {}, stack: {}", index, stack);
+            Log.LOGGER.warn(Log.MARKER_ARGS, "InventoryLimits.getMaxSize index: {}, stack: {}", index, stack);
             return 0;
         }
 

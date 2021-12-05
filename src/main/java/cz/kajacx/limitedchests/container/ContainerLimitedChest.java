@@ -18,6 +18,10 @@ public class ContainerLimitedChest extends ChestContainer {
         }
     }
 
+    public static ContainerLimitedChest threeRows(int windowId, PlayerInventory inv) {
+        return threeRows(windowId, inv, (PacketBuffer) null);
+    }
+
     public static ContainerLimitedChest threeRows(int windowId, PlayerInventory inv, PacketBuffer data) {
         return new ContainerLimitedChest(ContainerType.GENERIC_9x3, windowId, inv, 3);
     }

@@ -1,5 +1,6 @@
 package cz.kajacx.limitedchests.block;
 
+import cz.kajacx.limitedchests.tile.TileLimitedFurnace;
 import net.minecraft.block.FurnaceBlock;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockReader;
@@ -12,7 +13,7 @@ public class BlockLimitedFurnace extends FurnaceBlock {
 
     @Override
     public TileEntity newBlockEntity(IBlockReader blockReader) {
-       return null;
+       return new TileLimitedFurnace();
     }
 
 }
