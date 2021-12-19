@@ -13,9 +13,5 @@
   "block.limitedchests.limited_hopper": "Limited hopper",
   "block.limitedchests.limited_dropper": "Limited dropper",
 
-  "tile.limitedchests.limited_chest": "Limited chest",
-
-  "container.limitedchests.limited_chest": "Limited chest",
-
   "_trailingComma": "Hack to enable trailing comma in JSON"
 }

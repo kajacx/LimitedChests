@@ -13,9 +13,5 @@
   "block.limitedchests.limited_hopper": "Omezená násypka",
   "block.limitedchests.limited_dropper": "Omezený podavač",
 
-  "tile.limitedchests.limited_chest": "Omezená truhla",
-
-  "container.limitedchests.limited_chest": "Omezená truhla",
-
   "_trailingComma": "Hack to enable trailing comma in JSON"
 }

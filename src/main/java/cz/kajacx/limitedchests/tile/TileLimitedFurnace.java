@@ -8,20 +8,32 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.FurnaceTileEntity;
+import net.minecraft.tileentity.AbstractFurnaceTileEntity;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 
-public class TileLimitedFurnace extends FurnaceTileEntity implements ILimitableTile {
+public class TileLimitedFurnace extends AbstractFurnaceTileEntity implements ILimitableTile {
     
     private InventoryLimits limits;
 
     public TileLimitedFurnace() {
+        super(ModTiles.LIMITED_FURNACE.get(), IRecipeType.SMELTING);
         limits = new InventoryLimits(this.getContainerSize());
+
+        // TEST
+        limits.setCount(0, 2);
+        limits.setCount(1, 3);
+    }
+
+    protected ITextComponent getDefaultName() {
+       return new TranslationTextComponent("block.limitedchests.limited_furnace");
     }
     
     @Override
     protected Container createMenu(int windowId, PlayerInventory playerInventory) {
-        return new ContainerLimitedFurnace(windowId, playerInventory);
+        return new ContainerLimitedFurnace(windowId, playerInventory, this, this.dataAccess);
     }
 
     @Override

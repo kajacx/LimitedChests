@@ -61,6 +61,7 @@ public class ItemChestLimiter extends Item {
         if (replacedBlock != null) {
             level.setBlock(pos, replacedBlock.defaultBlockState(), 0);
             return ActionResultType.SUCCESS;
+            // return ActionResultType.CONSUME; TODO: use consume instead of success?
         }
 
         return super.onItemUseFirst(stack, context);
